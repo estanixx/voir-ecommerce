@@ -30,7 +30,7 @@ export const NextCollectionSection = () => {
   }, []);
   return (
     <section
-      className="grid grid-cols-5 py-2 w-full mt-4"
+      className="grid grid-cols-5 py-2 w-full mt-4 text-white"
       style={{ backgroundColor: "rgb(0,0,0, 0.4)" }}
     >
       <div className="text-center col-span-2 flex flex-col justify-center items-center">

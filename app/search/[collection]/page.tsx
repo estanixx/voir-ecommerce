@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import Grid from '@/components/grid';
 import ProductGridItems from '@/components/layout/product-grid-items';
 import { defaultSort, sorting } from '@/lib/constants';
-import { BackgroundTransition } from '../../../components/home/background-transition';
 
 export async function generateMetadata(props: {
   params: Promise<{ collection: string }>;

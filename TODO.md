@@ -5,6 +5,7 @@
 - [ ] Barra de búsqueda: Lupita que genere la barra y que la barra sea transparente.
 - [ ] Usar dos imágenes. Y con cuatro imágenes. y mostrar.
 - [ ] Cambiar fuente del menu.
+- [ ] Barra de search transparente e icono.
 - [ ] Quitar la barra, poner el newsletter en otro lado.
 - [ ] Cambiar el azul del precio en negro.
 - [ ] Hacer que las gorras sean 2x2.

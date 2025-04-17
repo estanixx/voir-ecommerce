@@ -96,7 +96,7 @@ export async function updateItemQuantity(
 }
 
 export async function redirectToCheckout() {
-  let cart = await getCart();
+  const cart = await getCart();
   redirect(cart!.checkoutUrl);
 }
 

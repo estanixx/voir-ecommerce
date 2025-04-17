@@ -28,7 +28,6 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
     </button>
   );
 }
-
 export function EditItemQuantityButton({
   item,
   type,
@@ -39,20 +38,35 @@ export function EditItemQuantityButton({
   optimisticUpdate: any;
 }) {
   const [message, formAction] = useActionState(updateItemQuantity, null);
+  
+  // Find the current variant in the product's variants
+  const currentVariant = item.merchandise.product.variants.edges.find(
+    (edge: { node: { id: string } }) => edge.node.id === item.merchandise.id
+  )?.node;
+  console.log(currentVariant)
   const payload = {
     merchandiseId: item.merchandise.id,
     quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
   };
+
   const updateItemQuantityAction = formAction.bind(null, payload);
+
+  // Check if we can increase quantity (variant must be available)
+  const canIncrease = type !== 'plus' || (currentVariant?.availableForSale ?? false);
 
   return (
     <form
       action={async () => {
-        optimisticUpdate(payload.merchandiseId, type);
-        updateItemQuantityAction();
+        if (canIncrease) {
+          optimisticUpdate(payload.merchandiseId, type);
+          updateItemQuantityAction();
+        }
       }}
     >
-      <SubmitButton type={type} />
+      <SubmitButton 
+        type={type} 
+        disabled={type === 'plus' && !canIncrease}
+      />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

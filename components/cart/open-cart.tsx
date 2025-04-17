@@ -16,9 +16,9 @@ export default function OpenCart({
       />
 
       {quantity ? (
-        <div className="absolute right-0 top-0 -mr-2 -mt-2 h-6 w-6 rounded-sm bg-blue-600 text-[11px] font-medium text-white">
+        <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center group-hover:bg-blue-700 transition-colors">
           {quantity}
-        </div>
+        </span>
       ) : null}
     </div>
   );

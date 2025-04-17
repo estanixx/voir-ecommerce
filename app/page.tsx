@@ -1,6 +1,5 @@
 import { Carousel } from "@/components/carousel";
 // import { ThreeItemGrid } from '@/components/grid/three-items';
-import { BackgroundTransition } from "@/components/home/background-transition";
 import Footer from "@/components/layout/footer/footer";
 import Link from "next/link";
 import { NextCollectionSection } from "@/components/home/next-collection-section";
@@ -22,13 +21,13 @@ export default async function HomePage() {
     <>
       {/* <ThreeItemGrid />
       <Carousel /> */}
-      <BackgroundTransition />
-      <section className="flex flex-col items-center justify-center h-screen">
+      
+      <section className="flex flex-col items-center justify-center h-screen text-white">
         <h1 className={`${fonts.logo.className} text-[120px]`}>VOIR</h1>
         <LogoIcon className="size-32 mt-[-70px]" />
       </section>
 
-      <section className="flex flex-col items-center justify-center">
+      <section className="flex flex-col items-center justify-center text-white">
         <h1 className={`text-xl text-center font-bold`}>NEW COLLECTION</h1>
         <h1
           className={` ${fonts.logo.className} my-[-50px] text-[150px] text-center`}

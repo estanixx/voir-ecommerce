@@ -8,6 +8,7 @@ import "./globals.css";
 import { baseUrl } from "@/lib/utils";
 import Footer from "@/components/layout/footer/footer";
 import { NewsletterModal } from "@/components/home/newsletter-modal";
+import { BackgroundTransition } from "@/components/home/background-transition";
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -39,7 +40,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body className="text-white border-white bg-neutral-50 selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
+      <body className=" selection:bg-teal-300">
+      <BackgroundTransition />
         <CartProvider cartPromise={cart}>
           <Navbar menu={headerMenu} shopMenus={navShopMenus} />
           <main className={`${fonts.complementary.className} relative`}>

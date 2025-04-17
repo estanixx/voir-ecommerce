@@ -2,21 +2,27 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { addItem } from '@/components/cart/actions';
+import { addItem, redirectToCheckout } from '@/components/cart/actions';
 import { useProduct } from '@/components/product/product-context';
 import { Product, ProductVariant } from '@/lib/shopify/types';
 import { useActionState } from 'react';
 import { useCart } from './cart-context';
 
 function SubmitButton({
+  className,
   availableForSale,
-  selectedVariantId
+  selectedVariantId,
+  actionType = 'add-to-cart',
+  onClick
 }: {
+  className: string;
   availableForSale: boolean;
   selectedVariantId: string | undefined;
+  actionType?: 'add-to-cart' | 'purchase-now';
+  onClick?: () => void;
 }) {
-  const buttonClasses =
-    'relative flex w-full items-center justify-center bg-black border border-white cursor-pointer p-4 tracking-wide text-white';
+  const buttonClasses = className +
+    ' relative flex w-full items-center justify-center p-4 tracking-wide';
   const disabledClasses = 'cursor-not-allowed opacity-60 hover:opacity-60';
 
   if (!availableForSale) {
@@ -34,25 +40,31 @@ function SubmitButton({
         disabled
         className={clsx(buttonClasses, disabledClasses)}
       >
+      {actionType === 'add-to-cart' && (
         <div className="absolute left-0 ml-4">
           <PlusIcon className="h-5" />
         </div>
-        Agregar a la bolsa
+      )}
+        {actionType === 'add-to-cart' ? 'Agregar a la bolsa' : 'Compra ahora'}
       </button>
     );
   }
 
   return (
     <button
-      aria-label="Add to cart"
+      aria-label={actionType === 'add-to-cart' ? 'Agregar a la bolsa' : 'Compra ahora'}
       className={clsx(buttonClasses, {
-        'hover:opacity-90': true
+        'hover:opacity-90 cursor-pointer': true
       })}
+      onClick={onClick}
+      type={onClick ? 'button' : 'submit'}
     >
-      <div className="absolute left-0 ml-4">
-        <PlusIcon className="h-5" />
-      </div>
-      Add To Cart
+      {actionType === 'add-to-cart' && (
+        <div className="absolute left-0 ml-4">
+          <PlusIcon className="h-5" />
+        </div>
+      )}
+      {actionType === 'add-to-cart' ? 'Agregar a la bolsa' : 'Compra ahora'}
     </button>
   );
 }
@@ -75,20 +87,57 @@ export function AddToCart({ product }: { product: Product }) {
     (variant) => variant.id === selectedVariantId
   )!;
 
+  const handlePurchaseNow = async () => {
+    addCartItem(finalVariant, product);
+    addItemAction();
+    redirectToCheckout();
+  };
+
   return (
-    <form
-      action={async () => {
-        addCartItem(finalVariant, product);
-        addItemAction();
-      }}
-    >
-      <SubmitButton
-        availableForSale={availableForSale}
-        selectedVariantId={selectedVariantId}
-      />
-      <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p>
-    </form>
+    <div className="flex flex-col gap-4 my-5 text-white">
+      <div className="flex gap-2">
+        {/* Selected variant square */}
+        <div className="flex size-14 items-center justify-center border border-white">
+          <span className="text-lg font-bold">
+            {variant?.selectedOptions[0]?.value || '...'}
+          </span>
+        </div>
+        
+        {/* Add to cart form */}
+        <form
+          action={async () => {
+            addCartItem(finalVariant, product);
+            addItemAction();
+          }}
+          className="flex-1"
+        >
+          <SubmitButton
+            availableForSale={availableForSale}
+            selectedVariantId={selectedVariantId}
+            className="w-full border border-white bg-transparent hover:bg-white hover:text-black transition-colors"
+            actionType="add-to-cart"
+          />
+          <p aria-live="polite" className="sr-only" role="status">
+            {message}
+          </p>
+        </form>
+      </div>
+      
+      {/* Purchase now button */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handlePurchaseNow();
+        }}
+      >
+        <SubmitButton
+          availableForSale={availableForSale}
+          selectedVariantId={selectedVariantId}
+          className="w-full border border-black bg-black text-white hover:bg-white hover:text-black transition-colors"
+          actionType="purchase-now"
+          onClick={handlePurchaseNow}
+        />
+      </form>
+    </div>
   );
 }
