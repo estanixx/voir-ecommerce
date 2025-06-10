@@ -7,8 +7,7 @@ import * as fonts from "../fonts";
 import "./globals.css";
 import { baseUrl } from "@/lib/utils";
 import Footer from "@/components/layout/footer/footer";
-import { NewsletterModal } from "@/components/home/newsletter-modal";
-import { BackgroundTransition } from "@/components/home/background-transition";
+import { BackgroundTransition } from "@/components/shared/background-transition";
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -40,8 +39,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body className=" selection:bg-teal-300">
-      <BackgroundTransition />
+      <body className="bg-black">
+        {/* <BackgroundTransition /> */}
         <CartProvider cartPromise={cart}>
           <Navbar menu={headerMenu} shopMenus={navShopMenus} />
           <main className={`${fonts.complementary.className} relative`}>

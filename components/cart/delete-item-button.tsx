@@ -10,7 +10,7 @@ export function DeleteItemButton({
   optimisticUpdate
 }: {
   item: CartItem;
-  optimisticUpdate: any;
+  optimisticUpdate;
 }) {
   const [message, formAction] = useActionState(removeItem, null);
   const merchandiseId = item.merchandise.id;

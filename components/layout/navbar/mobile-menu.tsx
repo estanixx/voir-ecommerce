@@ -6,10 +6,10 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu } from '@/lib/shopify/types';
+import { Menu as MenuType } from '@/lib/shopify/types'; // Renamed to avoid conflict with component name
 import Search, { SearchSkeleton } from './search';
 
-export default function MobileMenu({ menu }: { menu: Menu[] }) {
+export default function MobileMenu({ menu }: { menu: MenuType[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
@@ -18,16 +18,16 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 768) { // md breakpoint
         setIsOpen(false);
       }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isOpen]);
+  }, [isOpen]); // Dependency remains isOpen, as we only care about closing if it's open and resize occurs
 
   useEffect(() => {
-    setIsOpen(false);
+    setIsOpen(false); // Close menu on route changes
   }, [pathname, searchParams]);
 
   return (
@@ -35,62 +35,95 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors md:hidden dark:border-neutral-700 dark:text-white"
+        className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-300 text-neutral-700 transition-colors hover:border-neutral-400 md:hidden dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-neutral-500"
+        // Adjusted size slightly, border and text colors for a softer look
       >
-        <Bars3Icon className="h-4" />
+        <Bars3Icon className="h-5 w-5" /> {/* Slightly larger icon */}
       </button>
-      <Transition show={isOpen}>
-        <Dialog onClose={closeMobileMenu} className="relative z-50">
+
+      <Transition show={isOpen} as={Fragment}>
+        <Dialog onClose={closeMobileMenu} className="relative z-50 md:hidden"> {/* Ensure it's hidden on md screens via class too */}
+          {/* Backdrop */}
           <Transition.Child
             as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="opacity-0 backdrop-blur-none"
-            enterTo="opacity-100 backdrop-blur-[.5px]"
-            leave="transition-all ease-in-out duration-200"
-            leaveFrom="opacity-100 backdrop-blur-[.5px]"
-            leaveTo="opacity-0 backdrop-blur-none"
+            enter="transition-opacity ease-in-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-in-out duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
+            {/* Increased backdrop opacity and consistent blur */}
           </Transition.Child>
+
+          {/* Panel */}
           <Transition.Child
             as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="translate-x-[-100%]"
+            enter="transition-transform ease-in-out duration-300"
+            enterFrom="-translate-x-full"
             enterTo="translate-x-0"
-            leave="transition-all ease-in-out duration-200"
+            leave="transition-transform ease-in-out duration-200"
             leaveFrom="translate-x-0"
-            leaveTo="translate-x-[-100%]"
+            leaveTo="-translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
-              <div className="p-4">
+            <Dialog.Panel className="fixed inset-y-0 left-0 flex h-full w-full max-w-sm flex-col overflow-y-auto bg-white shadow-xl dark:bg-neutral-900">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
+                <Dialog.Title className="text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+                  Menu
+                </Dialog.Title>
                 <button
-                  className="mb-4 flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
                   onClick={closeMobileMenu}
                   aria-label="Close mobile menu"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-800 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
                 >
-                  <XMarkIcon className="h-6" />
+                  <XMarkIcon className="h-6 w-6" />
                 </button>
+              </div>
 
-                <div className="mb-4 w-full">
+              {/* Content Body */}
+              <div className="flex-grow p-4 space-y-6">
+                <div className="w-full">
                   <Suspense fallback={<SearchSkeleton />}>
                     <Search />
                   </Suspense>
                 </div>
+
                 {menu.length ? (
-                  <ul className="flex w-full flex-col">
-                    {menu.map((item: Menu) => (
-                      <li
-                        className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
-                        key={item.title}
-                      >
-                        <Link href={item.path} prefetch={true} onClick={closeMobileMenu}>
-                          {item.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <nav>
+                    <ul className="flex flex-col space-y-1">
+                      {menu.map((item: MenuType) => {
+                        const isActive = pathname === item.path;
+                        return (
+                          <li key={item.title}>
+                            <Link
+                              href={item.path}
+                              prefetch={true}
+                              onClick={closeMobileMenu}
+                              className={`block rounded-md px-3 py-2.5 text-base font-medium transition-all duration-150 ease-in-out
+                                ${isActive
+                                  ? 'bg-blue-600 text-white shadow-sm' // Active state
+                                  : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-200 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 dark:active:bg-neutral-700'
+                                }`}
+                            >
+                              {item.title}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </nav>
                 ) : null}
               </div>
+
+              {/* Optional Footer - uncomment and customize if needed
+              <div className="p-4 mt-auto border-t border-neutral-200 dark:border-neutral-800">
+                <p className="text-xs text-center text-neutral-500 dark:text-neutral-400">
+                  Your Company &copy; {new Date().getFullYear()}
+                </p>
+              </div>
+              */}
             </Dialog.Panel>
           </Transition.Child>
         </Dialog>

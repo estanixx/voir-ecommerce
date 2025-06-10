@@ -3,9 +3,9 @@ import LogoIcon from "@/components/icons/logo";
 import * as fonts from "@/fonts";
 import { getDateDifference } from "@/lib/utils";
 
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import { useEffect, useState } from "react";
-import { NewsletterModal } from "./newsletter-modal";
+// import { NewsletterModal } from "./newsletter-modal";
 
 export const NextCollectionSection = () => {
   const [remainingTime, setRemainingTime] = useState("00:00:00:00");

@@ -1,3 +1,4 @@
+'use client';
 export default function LogoIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
@@ -5,7 +6,7 @@ export default function LogoIcon(props: React.ComponentProps<"svg">) {
       data-name="Capa 2"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 2639.13 714.6"
-      aria-label={`${process.env.SITE_NAME} logo`}
+      aria-label={`Voir logo`}
       className={`stroke-0 ${props.className || ""}`}
       fill="currentColor"
       {...props}

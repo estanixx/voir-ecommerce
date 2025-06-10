@@ -94,10 +94,10 @@ export function AddToCart({ product }: { product: Product }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 my-5 text-white">
+    <div className="flex flex-col gap-4 my-5 text-black">
       <div className="flex gap-2">
         {/* Selected variant square */}
-        <div className="flex size-14 items-center justify-center border border-white">
+        <div className="flex size-14 items-center justify-center border border-black">
           <span className="text-lg font-bold">
             {variant?.selectedOptions[0]?.value || '...'}
           </span>
@@ -114,7 +114,7 @@ export function AddToCart({ product }: { product: Product }) {
           <SubmitButton
             availableForSale={availableForSale}
             selectedVariantId={selectedVariantId}
-            className="w-full border border-white bg-transparent hover:bg-white hover:text-black transition-colors"
+            className="w-full border border-white bg-transparent hover:bg-black hover:text-white transition-colors"
             actionType="add-to-cart"
           />
           <p aria-live="polite" className="sr-only" role="status">
@@ -133,7 +133,7 @@ export function AddToCart({ product }: { product: Product }) {
         <SubmitButton
           availableForSale={availableForSale}
           selectedVariantId={selectedVariantId}
-          className="w-full border border-black bg-black text-white hover:bg-white hover:text-black transition-colors"
+          className="w-full border border-black bg-black text-white hover:text-white transition-colors"
           actionType="purchase-now"
           onClick={handlePurchaseNow}
         />

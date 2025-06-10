@@ -4,6 +4,7 @@ import { Product } from '@/lib/shopify/types';
 import Link from 'next/link';
 
 export default function ProductGridItems({ products }: { products: Product[] }) {
+
   return (
     <>
       {products.map((product) => (
