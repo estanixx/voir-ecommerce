@@ -15,7 +15,6 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 // import { toast } from 'sonner'
 import { graffiti } from '@/fonts'
-import { BackgroundTransition } from '../shared/background-transition';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Correo electrónico inválido' }),

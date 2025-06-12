@@ -16,9 +16,9 @@ export const SocialMedia = ({ socialMedia }: { socialMedia: { [key: string]: str
           const IconElement = icons[key];
           if (!IconElement) return null;
           return (
-            <a key={key} href={val} className=''>
+            <Link key={key} href={val} className=''>
               <IconElement className='size-5'/>
-            </a>
+            </Link>
           );
         })
       }

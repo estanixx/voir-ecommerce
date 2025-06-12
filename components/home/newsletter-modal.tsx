@@ -1,0 +1,156 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { X } from "lucide-react";
+import Image from "next/image";
+import clsx from "clsx";
+
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { graffiti } from "@/fonts"; // Assuming you have this font setup
+
+const formSchema = z.object({
+  email: z.string().email({ message: "Correo electrónico inválido" }),
+  name: z.string().min(1, { message: "El nombre es obligatorio" }),
+  birthday: z
+    .string()
+    .min(1, { message: "La fecha de nacimiento es obligatoria" }),
+});
+
+const NewsletterModal = () => {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      birthday: "",
+    },
+  });
+
+  const onSubmit = async (/*values: {[key:string]: string}*/) => {
+    // Your form submission logic here
+    console.log("Form submitted!");
+  };
+
+  return (
+    <DialogContent className="max-w-[900px] flex overflow-hidden p-0">
+      <div className="p-6 flex-1">
+        <DialogHeader>
+          <DialogTitle className={clsx(graffiti.className, 'text-2xl text-center')}>Newsletter</DialogTitle>
+          <DialogDescription className='text-xs'>
+            Suscríbete para recibir nuestras últimas noticias y ofertas.
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 my-2">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Correo electrónico</FormLabel>
+                  <FormControl>
+                    <Input placeholder="ejemplo@correo.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Tu nombre" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="birthday"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Fecha de nacimiento</FormLabel>
+                  <FormControl>
+                    <Input type="date" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <p className="text-xs text-muted-foreground">
+              Al enviar este formulario, aceptas recibir información y
+              promociones relacionadas con nuestro negocio.
+            </p>
+            <Button type="submit" className="w-full">
+              Suscribirme
+            </Button>
+          </form>
+        </Form>
+      </div>
+      <div className="relative hidden md:block w-1/2">
+        <Image
+          src="https://picsum.photos/seed/pvp/1080/1920"
+          width={1080}
+          height={1920}
+          alt="Newsletter Promotion"
+          className="absolute inset-0 object-cover w-full h-full"
+        />
+        {/* This button allows the user to close the modal */}
+        <DialogTrigger asChild>
+          <Button
+            variant="ghost"
+            className="absolute top-2 right-2 rounded-full h-8 w-8 p-0 text-white hover:bg-white/20 hover:text-white"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Cerrar</span>
+          </Button>
+        </DialogTrigger>
+      </div>
+    </DialogContent>
+  );
+};
+
+const ModalTrigger = () => {
+  // Control the dialog's state, initializing it to 'true' to be open by default.
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setIsOpen(true), 5000);
+  }, [])
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button className="fixed left-10 bottom-10 rounded-full px-8 py-6 text-lg z-[99] font-bold bg-white text-black hover:bg-white">
+          % OFF
+        </Button>
+      </DialogTrigger>
+      <NewsletterModal />
+    </Dialog>
+  );
+};
+
+export default ModalTrigger;

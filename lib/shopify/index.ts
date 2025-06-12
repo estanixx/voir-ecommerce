@@ -51,7 +51,7 @@ import {
   ShopifyCreateCartOperation,
   ShopifyCustomerCreateOperation,
   ShopifyMenuOperation,
-  ShopifyMetaobject,
+  // ShopifyMetaobject,
   ShopifyMetaobjectOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -231,11 +231,11 @@ export async function createCart(): Promise<Cart> {
 export async function addToCart(
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const cartId = (await cookies()).get('cartId')?.value!;
+  const cartId = (await cookies()).get('cartId')?.value;
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
-      cartId,
+      cartId: cartId || '',
       lines
     }
   });
@@ -243,11 +243,11 @@ export async function addToCart(
 }
 
 export async function removeFromCart(lineIds: string[]): Promise<Cart> {
-  const cartId = (await cookies()).get('cartId')?.value!;
+  const cartId = (await cookies()).get('cartId')?.value;
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
     variables: {
-      cartId,
+      cartId: cartId || '',
       lineIds
     }
   });
@@ -258,11 +258,11 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
 export async function updateCart(
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const cartId = (await cookies()).get('cartId')?.value!;
+  const cartId = (await cookies()).get('cartId')?.value;
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
     variables: {
-      cartId,
+      cartId: cartId || '',
       lines
     }
   });

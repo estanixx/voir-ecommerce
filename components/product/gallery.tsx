@@ -115,15 +115,6 @@ export function Gallery({ images, className }: GalleryProps) {
     });
   };
 
-  if (imageAmount === 0) {
-    return (
-      <div
-        className={`flex items-center justify-center h-96 rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 ${className || ""}`}
-      >
-        No images to display.
-      </div>
-    );
-  }
 
   // --- Active Dot Calculation ---
   const activeDotIndices = useMemo(() => {
@@ -136,6 +127,16 @@ export function Gallery({ images, className }: GalleryProps) {
     return indices;
   }, [currentIndex, imageAmount, numVisible]);
 
+  
+  if (imageAmount === 0) {
+    return (
+      <div
+        className={`flex items-center justify-center h-96 rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 ${className || ""}`}
+      >
+        No images to display.
+      </div>
+    );
+  }
   return (
     <div
       className={`relative w-full select-none overflow-hidden ${className || ""}`}
@@ -173,7 +174,6 @@ export function Gallery({ images, className }: GalleryProps) {
         <>
           <button
             onClick={() => handleNavigation("left")}
-            disabled={isAnimating}
             aria-label="Previous image"
             className={`${navButtonBaseClassName} ${navButtonThemeClassName} left-3 sm:left-4`}
           >
@@ -181,7 +181,6 @@ export function Gallery({ images, className }: GalleryProps) {
           </button>
           <button
             onClick={() => handleNavigation("right")}
-            disabled={isAnimating}
             aria-label="Next image"
             className={`${navButtonBaseClassName} ${navButtonThemeClassName} right-3 sm:right-4`}
           >

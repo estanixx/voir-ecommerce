@@ -62,7 +62,7 @@ export const ProductImages = () => {
 const ImageDisplay = ({
   name,
   path,
-  backgroundImage,
+  // backgroundImage,
   productImage,
   hoverProductImage,
   description,

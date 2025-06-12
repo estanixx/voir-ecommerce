@@ -118,7 +118,7 @@ export type ShopifyCollection = {
 export type ShopifyMetaobject = {
   fields: {
     key: string;
-    jsonValue: any;
+    jsonValue: string;
     type: string;
   }[];
 }

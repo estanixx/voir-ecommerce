@@ -2,6 +2,7 @@ import { VoirHeader } from "@/components/home/voir-header";
 import { IlluminareSection } from "@/components/home/illuminare-section";
 import NewsletterForm from "@/components/home/newsletter-form";
 import { ProductImages } from "@/components/home/product-images";
+import ModalTrigger from '@/components/home/newsletter-modal';
 
 export const metadata = {
   description:
@@ -16,7 +17,7 @@ export default async function HomePage() {
     <>
       {/* <ThreeItemGrid />
       <Carousel /> */}
-
+      <ModalTrigger />
       <VoirHeader
         backgroundImageLarge="https://picsum.photos/seed/ppp/1920/1080"
         backgroundImageSmall="https://picsum.photos/seed/mobile/768/1024"

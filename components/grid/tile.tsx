@@ -4,7 +4,7 @@ import Label from "../label";
 
 export function GridTileImage({
   isInteractive = true,
-  active,
+  // active,
   label,
   hoverSrc,
   ...props

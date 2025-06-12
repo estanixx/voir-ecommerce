@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
-import { format, getDate, getMonth, getYear, setDate, setMonth, setYear } from "date-fns"
-import { es } from "date-fns/locale"
+import { format, getDate, getMonth, getYear } from "date-fns"
+// import { es } from "date-fns/locale"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -16,8 +16,8 @@ interface DatePickerProps {
 }
 
 export function DatePicker({
-  startYear = getYear(new Date()) - 100,
-  endYear = getYear(new Date()),
+  // startYear = getYear(new Date()) - 100,
+  // endYear = getYear(new Date()),
   className,
   value,
   onChange,

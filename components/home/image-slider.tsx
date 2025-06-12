@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Sun from "../icons/sun"; // Assuming Sun is a valid component path
+// import Sun from "../icons/sun"; // Assuming Sun is a valid component path
 // Initial slider position for horizontal mode (center)
 const INITIAL_HORIZONTAL_SLIDER_PERCENTAGE = 33;
 
 interface ImageComparisonSliderProps {
-  vImage: string;      // Single image for small screens
-  hAbove: string;      // "Top" image for horizontal slider (effectively the left image)
-  hBellow: string;     // "Bottom" image for horizontal slider (effectively the right image, shown underneath)
+  vImage: string; // Single image for small screens
+  hAbove: string; // "Top" image for horizontal slider (effectively the left image)
+  hBellow: string; // "Bottom" image for horizontal slider (effectively the right image, shown underneath)
   children?: React.ReactNode;
   breakpoint?: number; // Optional: custom breakpoint for switching views (default 768)
 }
@@ -64,7 +64,10 @@ export const ImageComparisonSlider = ({
 
       slider.style.left = `${sliderX}px`;
       topImageContainer.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-      topImageContainer.style.setProperty('-webkit-clip-path', `inset(0 ${100 - percentage}% 0 0)`);
+      topImageContainer.style.setProperty(
+        "-webkit-clip-path",
+        `inset(0 ${100 - percentage}% 0 0)`
+      );
       sliderPercentageRef.current = percentage;
     };
 
@@ -77,6 +80,14 @@ export const ImageComparisonSlider = ({
       const currentPercentage = (newRelativeX / containerRect.width) * 100;
       setPositionBasedOnPercentage(currentPercentage);
     };
+
+    const handleClickContainer = ( e: MouseEvent | TouchEvent ) => {
+      isDragging = true;
+      e.preventDefault();
+      slider.classList.add("dragging");
+      const touchOrMouse = "touches" in e ? e.touches[0] : e;
+      updatePositionBasedOnClientX(touchOrMouse.clientX);
+    }
 
     const startDrag = (e: MouseEvent | TouchEvent) => {
       isDragging = true;
@@ -106,6 +117,8 @@ export const ImageComparisonSlider = ({
     // Add event listeners only for horizontal slider mode
     slider.addEventListener("mousedown", startDrag);
     slider.addEventListener("touchstart", startDrag, { passive: false });
+    container.addEventListener("mousedown", handleClickContainer);
+    container.addEventListener("touchstart", handleClickContainer, {passive: false});
     document.addEventListener("mousemove", onDrag);
     document.addEventListener("touchmove", onDrag, { passive: false });
     document.addEventListener("mouseup", endDrag);
@@ -122,11 +135,13 @@ export const ImageComparisonSlider = ({
       // Cleanup listeners
       slider.removeEventListener("mousedown", startDrag);
       slider.removeEventListener("touchstart", startDrag);
+      container.removeEventListener("mousedown", startDrag);
       document.removeEventListener("mousemove", onDrag);
       document.removeEventListener("touchmove", onDrag);
       document.removeEventListener("mouseup", endDrag);
       document.removeEventListener("touchend", endDrag);
       window.removeEventListener("resize", handleResize);
+
       console.log("Horizontal Slider Listeners Removed");
     };
   }, [isSmallScreen, hAbove, hBellow, breakpoint]); // Effect depends on screen size and horizontal images
@@ -144,7 +159,7 @@ export const ImageComparisonSlider = ({
           alt="Display Image"
           fill={true}
           priority
-          className="absolute inset-0 object-cover z-10"
+          className="absolute inset-0 object-cover z-10 select-none"
         />
       ) : (
         // LARGER SCREENS: Display horizontal comparison slider
@@ -166,13 +181,13 @@ export const ImageComparisonSlider = ({
               alt="Comparison Overlay Image"
               fill={true}
               priority
-              className="object-cover"
+              className="object-cover select-none"
             />
           </div>
           {/* Slider Handle and Line - only for larger screens */}
           <div
             ref={sliderRef}
-            className="absolute top-0 bottom-0 w-0.5 cursor-ew-resize z-40 bg-white/60 group"
+            className="absolute top-0 bottom-0 w-0.5 cursor-ew-resize z-40 group"
             style={{
               // JS sets 'left', this transform centers the 2px line on that 'left' coordinate
               transform: "translateX(-50%)",
@@ -180,23 +195,21 @@ export const ImageComparisonSlider = ({
           >
             <div
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-                         flex items-center justify-center size-10 md:size-12 rounded-full 
-                          shadow-xl bg-white
-                         transition-transform duration-150 group-hover:scale-110 active:scale-105 pointer-events-auto`}
+                         flex items-center justify-center size-40 md:size-20 rounded-full 
+                          shadow-xl
+                         transition-transform duration-150 group-hover:scale-110 active:scale-105`}
             >
-              <Sun className="size-4 md:size-9 fill-black" />
+              {/* Children overlay (common for both modes) */}
+              {children && (
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center text-white text-center p-4 pointer-events-auto">
+                  {children}
+                </div>
+              )}
+              {/* <Sun className="size-4 md:size-9 fill-black" /> */}
             </div>
           </div>
         </>
       )}
-
-      {/* Children overlay (common for both modes) */}
-      {children && (
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-white pointer-events-none text-center p-4">
-          {children}
-        </div>
-      )}
     </div>
   );
 };
-

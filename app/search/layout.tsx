@@ -4,7 +4,7 @@
 // import { sorting } from "@/lib/constants";
 import ChildrenWrapper from "./children-wrapper";
 import { Suspense } from "react";
-import { BackgroundTransition } from "@/components/shared/background-transition";
+// import { BackgroundTransition } from "@/components/shared/background-transition";
 
 export default function SearchLayout({
   children,

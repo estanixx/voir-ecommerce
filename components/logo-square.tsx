@@ -1,4 +1,4 @@
-import clsx from "clsx";
+// import clsx from "clsx";
 import LogoIcon from "./icons/logo";
 
 export default function LogoSquare({ className = '' }: { className?: string }) {

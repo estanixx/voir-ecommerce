@@ -7,7 +7,6 @@ import * as fonts from "../fonts";
 import "./globals.css";
 import { baseUrl } from "@/lib/utils";
 import Footer from "@/components/layout/footer/footer";
-import { BackgroundTransition } from "@/components/shared/background-transition";
 const { SITE_NAME } = process.env;
 
 export const metadata = {

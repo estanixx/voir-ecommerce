@@ -63,22 +63,22 @@ export default async function ProductPage(props: {
   // Example: const productVideoSrc = product.metafields?.find(mf => mf.key === 'video_url')?.value;
   const productVideoSrc = "/videos/sample-product-video.mp4"; // Replace with a real video path for testing
 
-  const productJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.title,
-    description: product.description,
-    image: product.featuredImage.url,
-    offers: {
-      "@type": "AggregateOffer",
-      availability: product.availableForSale
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount,
-    },
-  };
+  // const productJsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "Product",
+  //   name: product.title,
+  //   description: product.description,
+  //   image: product.featuredImage.url,
+  //   offers: {
+  //     "@type": "AggregateOffer",
+  //     availability: product.availableForSale
+  //       ? "https://schema.org/InStock"
+  //       : "https://schema.org/OutOfStock",
+  //     priceCurrency: product.priceRange.minVariantPrice.currencyCode,
+  //     highPrice: product.priceRange.maxVariantPrice.amount,
+  //     lowPrice: product.priceRange.minVariantPrice.amount,
+  //   },
+  // };
 
   return (
     <ProductProvider>
