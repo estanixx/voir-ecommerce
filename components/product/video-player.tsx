@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/24/solid";
 
 // --- Interfaces ---
-export interface VerticalVideoPlayer {
+export interface VerticalVideoPlayerProps {
   /** The source URL of the vertical video */
   src: string;
   /** Optional additional class names for the container */

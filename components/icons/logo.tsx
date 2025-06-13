@@ -1,4 +1,3 @@
-'use client';
 export default function LogoIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg

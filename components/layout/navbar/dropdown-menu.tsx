@@ -1,4 +1,4 @@
-import { Menu } from "lib/shopify/types";
+import { Menu } from "@/lib/shopify/types";
 import Link from "next/link";
 import * as fonts from '../../../fonts';
 // import { title } from "process";
