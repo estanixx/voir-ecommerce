@@ -131,3 +131,8 @@ body.radix-themes-body-lock { /* You might also see this class depending on your
 html {
   padding-right: calc(100vw - 100%) !important; /* Adjust as needed for your scrollbar width */
 }
+
+.modal-btn {
+    transform: rotate(-90deg) translateX(100%);
+    transform-origin: 100% 100%;
+}
