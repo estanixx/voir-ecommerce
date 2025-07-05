@@ -1,9 +1,10 @@
-import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Tu configuración de Next.js se mantiene aquí
   experimental: {
-    inlineCss: true,
     useCache: true,
+    inlineCss: true,
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -11,16 +12,16 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'picsum.photos',
-        pathname: '/**'
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
-        pathname: '/s/files/**'
+        pathname: '/s/files/**',
       },
-    ]
-  }
+    ],
+  },
 };
 
-
+// 2. Envuelve tu configuración de Next.js con la configuración de PWA
 export default nextConfig;

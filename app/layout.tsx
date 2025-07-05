@@ -7,6 +7,8 @@ import * as fonts from "../fonts";
 import "./globals.css";
 import { baseUrl } from "@/lib/utils";
 import Footer from "@/components/layout/footer/footer";
+import clsx from "clsx";
+// import { RegisterSW } from '../components/register-sw';
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -37,17 +39,18 @@ export default async function RootLayout({
   const cart = getCart();
 
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className="bg-black">
-        {/* <BackgroundTransition /> */}
-        <CartProvider cartPromise={cart}>
+    <html lang="en" className={clsx(GeistSans.variable, '!p-0')}>
+      {/* <RegisterSW /> */}
+      <CartProvider cartPromise={cart}>
+        <body className="bg-black !m-0 !p-0">
+          {/* <BackgroundTransition /> */}
           <Navbar menu={headerMenu} shopMenus={navShopMenus} />
-          <main className={`${fonts.complementary.className} relative`}>
+          <main className={`${fonts.complementary.className} relative w-full`}>
             {children}
           </main>
           <Footer />
-        </CartProvider>
-      </body>
+        </body>
+      </CartProvider>
     </html>
   );
 }

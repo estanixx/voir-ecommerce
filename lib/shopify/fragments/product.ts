@@ -9,6 +9,20 @@ const productFragment = /* GraphQL */ `
     title
     description
     descriptionHtml
+    # --- Start of added metafields ---
+    video: metafield(namespace: "custom", key: "video") {
+      value
+    }
+    careInstructions: metafield(namespace: "custom", key: "cuidados") {
+      value
+    }
+    materials: metafield(namespace: "custom", key: "materiales") {
+      value
+    }
+    sizeGuide: metafield(namespace: "custom", key: "guia_de_tallas") {
+      value
+    }
+    # --- End of added metafields ---
     options {
       id
       name

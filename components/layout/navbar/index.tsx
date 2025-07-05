@@ -65,7 +65,7 @@ function Navbar$({
       // General text elements (excluding monograms if they don't change color)
       // Be more specific if some SVGs should not change fill/stroke with `activeTextColor`
       const stTextElements = gsap.to(
-        navbarElement.querySelectorAll("a:not(.monogram-link), .menu-item-class, input, .cart-icon-selector path, svg"), // Adjust selectors as needed
+        navbarElement.querySelectorAll("a:not(.monogram-link), .menu-item-class, input, button, .cart-icon-selector path, svg"), // Adjust selectors as needed
         {
           color: activeTextColor,
           // fill: activeTextColor, // if SVGs should change fill
@@ -209,7 +209,7 @@ function Navbar$({
   return (
     <nav
       ref={navbarRef}
-      className="flex items-center px-4 py-2 lg:px-6 fixed top-0 left-0 w-full bg-transparent z-50 text-white" // Added initial text-white
+      className="flex items-center px-4 py-2 lg:px-6 fixed top-0 left-0 w-full bg-transparent z-[99] text-white" // Added initial text-white
       // This onMouseLeave is for the dropdown menu, not the general navbar hover.
       // The general navbar hover is handled by event listeners in useGSAP.
       // If this onMouseLeave is intended for the entire navbar to hide the dropdown, its logic might need to be combined or reviewed.

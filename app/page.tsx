@@ -4,12 +4,36 @@ import NewsletterForm from "@/components/home/newsletter-form";
 import { ProductImages } from "@/components/home/product-images";
 import ModalTrigger from '@/components/home/newsletter-modal';
 
-export const metadata = {
+import { type Metadata } from 'next';
+
+const { SITE_NAME } = process.env;
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} | One Way`,
   description:
-    "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
-  openGraph: {
-    type: "website",
+    "Discover Voir, a fashion-forward brand dedicated to clarity, vision, and progress. Explore our curated collections, including the latest 'Illuminare' line, and find your way forward in style.",
+  robots: {
+    follow: true,
+    index: true
   },
+  alternates: {
+    canonical: '/' // Sets the canonical URL for the homepage
+  },
+  openGraph: {
+    url: '/', // The canonical URL for Open Graph
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | One Way`,
+    description: 'Discover Voir, a fashion-forward brand dedicated to clarity, vision, and progress.',
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.tsx', // Your Open Graph image file
+        width: 1200,
+        height: 630,
+        alt: `The official logo and branding for Voir`
+      }
+    ]
+  }
 };
 
 export default async function HomePage() {

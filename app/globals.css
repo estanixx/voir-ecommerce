@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
+@plugin '@tailwindcss/typography';
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -121,3 +121,13 @@
   }
 }
 
+
+body[data-scroll-locked],
+body.radix-themes-body-lock { /* You might also see this class depending on your Radix setup */
+  overflow: auto !important;
+}
+
+/* Optional: To prevent layout shift if the scrollbar disappears and reappears */
+html {
+  padding-right: calc(100vw - 100%) !important; /* Adjust as needed for your scrollbar width */
+}

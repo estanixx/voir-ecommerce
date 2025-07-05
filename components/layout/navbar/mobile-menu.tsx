@@ -35,14 +35,14 @@ export default function MobileMenu({ menu }: { menu: MenuType[] }) {
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-300 text-neutral-700 transition-colors hover:border-neutral-400 md:hidden dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-neutral-500"
+        className="flex h-10 w-10 items-center justify-center rounded-lg border text-white fill-white border-neutral-300 transition-colors hover:border-neutral-400 md:hidden dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-neutral-500"
         // Adjusted size slightly, border and text colors for a softer look
       >
         <Bars3Icon className="h-5 w-5" /> {/* Slightly larger icon */}
       </button>
 
       <Transition show={isOpen} as={Fragment}>
-        <Dialog onClose={closeMobileMenu} className="relative z-50 md:hidden"> {/* Ensure it's hidden on md screens via class too */}
+        <Dialog onClose={closeMobileMenu} className="relative z-100 md:hidden"> {/* Ensure it's hidden on md screens via class too */}
           {/* Backdrop */}
           <Transition.Child
             as={Fragment}

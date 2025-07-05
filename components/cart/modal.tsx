@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { Dialog, Transition } from '@headlessui/react';
-import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import LoadingDots from '@/components/loading-dots';
-import Price from '@/components/price';
-import { DEFAULT_OPTION } from '@/lib/constants';
-import { createUrl } from '@/lib/utils';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Fragment, useEffect, useRef, useState } from 'react';
-import { useFormStatus } from 'react-dom';
-import { createCartAndSetCookie, redirectToCheckout } from './actions';
-import { useCart } from './cart-context';
-import { DeleteItemButton } from './delete-item-button';
-import { EditItemQuantityButton } from './edit-item-quantity-button';
-import OpenCart from './open-cart';
+import clsx from "clsx";
+import { Dialog, Transition } from "@headlessui/react";
+import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import LoadingDots from "@/components/loading-dots";
+import Price from "@/components/price";
+import { DEFAULT_OPTION } from "@/lib/constants";
+import { createUrl } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
+import { createCartAndSetCookie, redirectToCheckout } from "./actions";
+import { useCart } from "./cart-context";
+import { DeleteItemButton } from "./delete-item-button";
+import { EditItemQuantityButton } from "./edit-item-quantity-button";
+import OpenCart from "./open-cart";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -32,12 +32,12 @@ export default function CartModal() {
   useEffect(() => {
     if (!cart) {
       createCartAndSetCookie()
-        .then((newCart) => {
-          console.log('Carrito creado:', newCart);
-        })
+        .then(() => {})
         .catch((error) => {
-          console.error('Error al crear el carrito:', error);
-          setError('Error al cargar el carrito. Por favor, inténtalo de nuevo.');
+          console.error("Error al crear el carrito:", error);
+          setError(
+            "Error al cargar el carrito. Por favor, inténtalo de nuevo."
+          );
         });
     }
   }, [cart]);
@@ -57,16 +57,16 @@ export default function CartModal() {
 
   return (
     <>
-      <button 
-        aria-label="Abrir carrito" 
-        className='cursor-pointer relative group'
+      <button
+        aria-label="Abrir carrito"
+        className="cursor-pointer relative group"
         onClick={openCart}
       >
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
-      
+
       <Transition show={isOpen}>
-        <Dialog onClose={closeCart} className="relative z-50">
+        <Dialog onClose={closeCart} className="relative z-100">
           <Transition.Child
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
@@ -78,7 +78,7 @@ export default function CartModal() {
           >
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           </Transition.Child>
-          
+
           <Transition.Child
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
@@ -91,8 +91,8 @@ export default function CartModal() {
             <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[420px] dark:border-neutral-700 dark:bg-black/80 dark:text-white">
               <div className="flex items-center justify-between mb-4">
                 <p className="text-xl font-bold">Mi Carrito</p>
-                <button 
-                  aria-label="Cerrar carrito" 
+                <button
+                  aria-label="Cerrar carrito"
                   onClick={closeCart}
                   className="hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full p-1 transition-colors"
                 >
@@ -145,10 +145,7 @@ export default function CartModal() {
                         );
 
                         return (
-                          <li
-                            key={i}
-                            className="py-4"
-                          >
+                          <li key={i} className="py-4">
                             <div className="relative flex w-full flex-row justify-between">
                               <div className="absolute z-40 -top-2">
                                 <DeleteItemButton
@@ -159,6 +156,7 @@ export default function CartModal() {
                               <div className="flex flex-row gap-4">
                                 <div className="relative h-20 w-20 overflow-hidden rounded-md border border-neutral-200 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800">
                                   <Image
+                                    priority={true}
                                     className="h-full w-full object-cover"
                                     width={80}
                                     height={80}
@@ -180,13 +178,12 @@ export default function CartModal() {
                                   >
                                     {item.merchandise.product.title}
                                   </Link>
-                                  {item.merchandise.title !==
-                                  DEFAULT_OPTION ? (
+                                  {item.merchandise.title !== DEFAULT_OPTION ? (
                                     <p className="text-sm text-neutral-500 dark:text-neutral-400">
                                       {item.merchandise.title}
                                     </p>
                                   ) : null}
-                                  
+
                                   <div className="mt-2 flex items-center">
                                     <div className="flex h-8 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
                                       <EditItemQuantityButton
@@ -222,10 +219,12 @@ export default function CartModal() {
                         );
                       })}
                   </ul>
-                  
+
                   <div className="border-t border-neutral-200 dark:border-neutral-700 pt-4">
                     <div className="mb-3 flex items-center justify-between">
-                      <p className="text-neutral-600 dark:text-neutral-400">Subtotal</p>
+                      <p className="text-neutral-600 dark:text-neutral-400">
+                        Subtotal
+                      </p>
                       <Price
                         className="font-medium"
                         amount={cart.cost.subtotalAmount.amount}
@@ -233,7 +232,9 @@ export default function CartModal() {
                       />
                     </div>
                     <div className="mb-3 flex items-center justify-between">
-                      <p className="text-neutral-600 dark:text-neutral-400">Envío</p>
+                      <p className="text-neutral-600 dark:text-neutral-400">
+                        Envío
+                      </p>
                       <p className="font-medium">Calculado al finalizar</p>
                     </div>
                     <div className="mb-4 flex items-center justify-between border-t border-neutral-200 pt-3 dark:border-neutral-700">
@@ -244,11 +245,11 @@ export default function CartModal() {
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
                     </div>
-                    
+
                     <form action={redirectToCheckout}>
                       <CheckoutButton />
                     </form>
-                    
+
                     <button
                       onClick={closeCart}
                       className="mt-3 w-full rounded-lg border border-neutral-200 px-4 py-2 hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800 transition-colors"
@@ -269,7 +270,7 @@ export default function CartModal() {
 function CloseCart({ className }: { className?: string }) {
   return (
     <div className="relative flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 text-black transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800">
-      <XMarkIcon className={clsx('h-5', className)} />
+      <XMarkIcon className={clsx("h-5", className)} />
     </div>
   );
 }
@@ -283,11 +284,7 @@ function CheckoutButton() {
       type="submit"
       disabled={pending}
     >
-      {pending ? (
-        <LoadingDots className="bg-white" />
-      ) : (
-        'Finalizar compra'
-      )}
+      {pending ? <LoadingDots className="bg-white" /> : "Finalizar compra"}
     </button>
   );
 }

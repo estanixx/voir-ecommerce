@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { gsap } from "gsap";
+import { GalleryLoader } from "./gallery-loader";
 
 // --- Configuration ---
 const ANIMATION_DURATION_S = 0.4; // Animation duration in seconds for GSAP
@@ -27,9 +28,9 @@ export interface GalleryProps {
 export function Gallery({ images, className }: GalleryProps) {
   const imageAmount = images.length;
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // The number of visible items is now state, managed by the resize effect
-  const [numVisible, setNumVisible] = useState(1);
+  const [numVisible, setNumVisible] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(imageAmount);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -38,11 +39,16 @@ export function Gallery({ images, className }: GalleryProps) {
   // Effect for handling screen size changes and setting numVisible
   useEffect(() => {
     const checkScreenSize = () => {
-      if (window.innerWidth >= 1024) { // Large screens
+      if (!window.innerWidth) {
+        setNumVisible(0);
+      } else if (window.innerWidth >= 1024) {
+        // Large screens
         setNumVisible(3);
-      } else if (window.innerWidth >= 768) { // Medium screens
+      } else if (window.innerWidth >= 768) {
+        // Medium screens
         setNumVisible(2);
-      } else { // Small screens
+      } else {
+        // Small screens
         setNumVisible(1);
       }
     };
@@ -74,7 +80,8 @@ export function Gallery({ images, className }: GalleryProps) {
     if (isAnimating) return;
     setIsAnimating(true);
 
-    const nextIndex = direction === "right" ? currentIndex + 1 : currentIndex - 1;
+    const nextIndex =
+      direction === "right" ? currentIndex + 1 : currentIndex - 1;
     const targetXPercent = -nextIndex * (100 / shownImages.length);
 
     gsap.to(containerRef.current, {
@@ -101,42 +108,42 @@ export function Gallery({ images, className }: GalleryProps) {
   const handleDotClick = (targetDotIndex: number) => {
     const targetImageIndex = imageAmount + targetDotIndex;
     if (isAnimating || targetImageIndex === currentIndex) return;
-    
+
     setIsAnimating(true);
     const targetXPercent = -targetImageIndex * (100 / shownImages.length);
     gsap.to(containerRef.current, {
-        xPercent: targetXPercent,
-        duration: ANIMATION_DURATION_S,
-        ease: "power3.inOut",
-        onComplete: () => {
-            setCurrentIndex(targetImageIndex);
-            setIsAnimating(false);
-        }
+      xPercent: targetXPercent,
+      duration: ANIMATION_DURATION_S,
+      ease: "power3.inOut",
+      onComplete: () => {
+        setCurrentIndex(targetImageIndex);
+        setIsAnimating(false);
+      },
     });
   };
-
 
   // --- Active Dot Calculation ---
   const activeDotIndices = useMemo(() => {
     const indices = new Set<number>();
     // This loop now works for any number of visible items
     for (let i = 0; i < numVisible; i++) {
-        const realIndex = (currentIndex + i) % imageAmount;
-        indices.add(realIndex);
+      const realIndex = (currentIndex + i) % imageAmount;
+      indices.add(realIndex);
     }
     return indices;
   }, [currentIndex, imageAmount, numVisible]);
 
-  
   if (imageAmount === 0) {
     return (
-      <div
-        className={`flex items-center justify-center h-96 rounded-lg bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 ${className || ""}`}
-      >
-        No images to display.
-      </div>
+      <GalleryLoader quote="No hay imágenes disponibles"/>
     );
   }
+  if (numVisible === 0) {
+    return (
+      <GalleryLoader quote="Clearing the vision"/>
+    );
+  }
+
   return (
     <div
       className={`relative w-full select-none overflow-hidden ${className || ""}`}
@@ -186,7 +193,7 @@ export function Gallery({ images, className }: GalleryProps) {
           >
             <ArrowRightIcon className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
-          
+
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center space-x-2 z-10 p-1 bg-black/20 dark:bg-white/20 backdrop-blur-sm rounded-full">
             {images.map((_, index) => {
               const isActive = activeDotIndices.has(index);

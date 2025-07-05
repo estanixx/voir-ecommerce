@@ -147,21 +147,21 @@ export const ImageComparisonSlider = ({
         <>
           {/* Bottom Image (hBellow) */}
           <Image
+            priority={true}
             key={hBellow}
             src={hBellow}
             alt="Comparison Base Image"
             fill={true}
-            priority
             className="absolute inset-0 object-cover z-10"
           />
           {/* Container for Top Image (hAbove) - this one gets clipped */}
           <div ref={topImageContainerRef} className="absolute inset-0 z-20">
             <Image
+              priority={true}
               key={hAbove}
               src={hAbove}
               alt="Comparison Overlay Image"
               fill={true}
-              priority
               className="object-cover"
             />
           </div>

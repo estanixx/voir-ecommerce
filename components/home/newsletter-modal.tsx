@@ -48,20 +48,26 @@ const NewsletterModal = () => {
 
   const onSubmit = async (/*values: {[key:string]: string}*/) => {
     // Your form submission logic here
-    console.log("Form submitted!");
   };
 
   return (
-    <DialogContent className="max-w-[900px] flex overflow-hidden p-0">
+    <DialogContent className="max-w-[900px] flex overflow-hidden p-0 mt-5">
       <div className="p-6 flex-1">
         <DialogHeader>
-          <DialogTitle className={clsx(graffiti.className, 'text-2xl text-center')}>Newsletter</DialogTitle>
-          <DialogDescription className='text-xs'>
+          <DialogTitle
+            className={clsx(graffiti.className, "text-2xl text-center")}
+          >
+            Newsletter
+          </DialogTitle>
+          <DialogDescription className="text-xs">
             Suscríbete para recibir nuestras últimas noticias y ofertas.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 my-2">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 my-2"
+          >
             <FormField
               control={form.control}
               name="email"
@@ -113,6 +119,7 @@ const NewsletterModal = () => {
       </div>
       <div className="relative hidden md:block w-1/2">
         <Image
+          priority={true}
           src="https://picsum.photos/seed/pvp/1080/1920"
           width={1080}
           height={1920}
@@ -123,10 +130,9 @@ const NewsletterModal = () => {
         <DialogTrigger asChild>
           <Button
             variant="ghost"
-            className="absolute top-2 right-2 rounded-full h-8 w-8 p-0 text-white hover:bg-white/20 hover:text-white"
+            className="absolute top-2 right-2 rounded-full h-8 w-8 p-0 text-white hover:bg-white/20 hover:text-white cursor-pointer"
           >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Cerrar</span>
+            <X className="h-4 w-4 cursor-pointer" />
           </Button>
         </DialogTrigger>
       </div>
@@ -139,13 +145,13 @@ const ModalTrigger = () => {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     setTimeout(() => setIsOpen(true), 5000);
-  }, [])
+  }, []);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="fixed left-10 bottom-10 rounded-full px-8 py-6 text-lg z-[99] font-bold bg-white text-black hover:bg-white">
-          % OFF
+        <Button className="fixed top-1/2 right-0 z-[99] font-bold bg-white text-black hover:bg-white px-8 py-6 rounded-none -rotate-90 origin-top-right mr-12">
+          15% OFF
         </Button>
       </DialogTrigger>
       <NewsletterModal />

@@ -69,9 +69,16 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
+export type Product = Omit<
+  ShopifyProduct,
+  'variants' | 'images' | 'video' | 'careInstructions' | 'materials' | 'sizeGuide'
+> & {
   variants: ProductVariant[];
   images: Image[];
+  video?: Maybe<string>;
+  careInstructions?: Maybe<string>;
+  materials?: Maybe<string>;
+  sizeGuide?: Maybe<string>;
 };
 
 export type ProductOption = {
@@ -124,6 +131,9 @@ export type ShopifyMetaobject = {
   }[];
 }
 
+export type ShopifyMetafield<T> = {
+  value: T;
+};
 export type ShopifyProduct = {
   id: string;
   handle: string;
@@ -142,6 +152,11 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
+  // Add new properties to match the GraphQL fragment aliases
+  video?: Maybe<ShopifyMetafield<string>>;
+  careInstructions?: Maybe<ShopifyMetafield<string>>;
+  materials?: Maybe<ShopifyMetafield<string>>;
+  sizeGuide?: Maybe<ShopifyMetafield<string>>;
 };
 
 export type ShopifyCartOperation = {

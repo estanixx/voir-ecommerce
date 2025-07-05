@@ -1,4 +1,4 @@
-'use client'; // Indica que este es un Componente Cliente
+"use client"; // Indica que este es un Componente Cliente
 
 import { logo } from "@/fonts"; // Asegúrate de que la ruta y exportación sean correctas
 import LogoIcon from "../icons/logo"; // Asegúrate de que la ruta y exportación sean correctas
@@ -27,10 +27,10 @@ export const VoirHeader = ({
     };
 
     checkScreenSize(); // Initial check on mount
-    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
 
     // Cleanup listener on component unmount
-    return () => window.removeEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, [breakpoint]); // Re-run if the breakpoint prop changes
 
   // GSAP animations effect (remains largely the same)
@@ -38,19 +38,17 @@ export const VoirHeader = ({
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      const logoWrapper = sectionRef.current?.querySelector('#logo-wrapper');
-      const letters = sectionRef.current?.querySelectorAll('[data-letter]');
-      if (!logoWrapper || !letters || letters.length === 0) { // Added length check for letters
-        console.log('GSAP animation targets not found or empty.');
+      const logoWrapper = sectionRef.current?.querySelector("#logo-wrapper");
+      const letters = sectionRef.current?.querySelectorAll("[data-letter]");
+      if (!logoWrapper || !letters || letters.length === 0) {
+        // Added length check for letters
         return;
       }
-      console.log('Componente Montado - Iniciando Animaciones GSAP');
-
       gsap.to(logoWrapper, {
-        width: 'auto',
+        width: "auto",
         delay: 2,
         duration: 1.5,
-        ease: 'power2.out'
+        ease: "power2.out",
       });
 
       letters.forEach((el, i) => {
@@ -72,7 +70,9 @@ export const VoirHeader = ({
   }, []); // GSAP animations run once on mount
 
   // Determine which image source to use
-  const currentImageSrc = isSmallScreen ? backgroundImageSmall : backgroundImageLarge;
+  const currentImageSrc = isSmallScreen
+    ? backgroundImageSmall
+    : backgroundImageLarge;
 
   return (
     <section
@@ -82,14 +82,16 @@ export const VoirHeader = ({
       <Image
         key={currentImageSrc} // Add key to ensure Next.js re-renders the Image component if src changes
         src={currentImageSrc}
-        alt='Voir Banner'
+        alt="Voir Banner"
         fill // Use fill to cover the parent container
         priority // Consider 'priority' if this is a Largest Contentful Paint (LCP) element
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example 'sizes' prop, adjust based on your layout
-        className='absolute top-0 left-0 w-full h-full object-cover z-[-1]' // Adjusted z-index, ensure content is above
+        sizes="" // Example 'sizes' prop, adjust based on your layout
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1]" // Adjusted z-index, ensure content is above
       />
       {/* Content needs to be on a higher z-index than the background image */}
-      <div className="relative z-10 flex flex-col items-center justify-center"> {/* Wrapper for foreground content */}
+      <div className="relative z-10 flex flex-col items-center justify-center">
+        {" "}
+        {/* Wrapper for foreground content */}
         <h1
           className={`${logo.className} text-[clamp(50px,20vw,200px)] flex [&>span]:opacity-0 xs:mb-[-80px] sm:mb-[-80px] md:mb-[-100px] lg:mb-[-100px]  mb-[-30px] [&>span]:scale-x-150 gap-2 sm:gap-3 md:gap-5`}
         >
@@ -100,7 +102,8 @@ export const VoirHeader = ({
         </h1>
         <figure id="logo-wrapper" className="w-0 overflow-hidden h-auto">
           {/* Using clamp for responsive margin-top */}
-          <LogoIcon className="size-[clamp(50px,15vw,160px)]" /> {/* Using clamp for responsive logo size */}
+          <LogoIcon className="size-[clamp(50px,15vw,160px)]" />{" "}
+          {/* Using clamp for responsive logo size */}
         </figure>
       </div>
     </section>
