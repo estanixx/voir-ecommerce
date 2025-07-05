@@ -6,7 +6,7 @@ export const IlluminareSection = () => {
   return (
     <section className="relative  h-auto">
 
- <ImageComparisonSlider
+   <ImageComparisonSlider
         hAbove="https://picsum.photos/seed/h_above/1600/900"
         hBellow="https://picsum.photos/seed/h_bellow/1600/900"
         vImage="https://picsum.photos/seed/v_above/900/1600"
