@@ -56,7 +56,7 @@ export const MobileList = ({
             {/* 2. El título va detrás como una capa de fondo (z-10) */}
             <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
               <h3
-                className={`text-8xl font-black text-white uppercase break-words`}
+                className={`text-4xl font-black text-white uppercase break-words`}
               >
                 {item.name}
               </h3>
