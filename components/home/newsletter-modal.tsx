@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { X } from "lucide-react";
 import Image from "next/image";
 import clsx from "clsx";
 
@@ -127,14 +126,7 @@ const NewsletterModal = () => {
           className="absolute inset-0 object-cover w-full h-full"
         />
         {/* This button allows the user to close the modal */}
-        <DialogTrigger asChild>
-          <Button
-            variant="ghost"
-            className="absolute top-2 right-2 rounded-full h-8 w-8 p-0 text-white hover:bg-white/20 hover:text-white cursor-pointer"
-          >
-            <X className="h-4 w-4 cursor-pointer" />
-          </Button>
-        </DialogTrigger>
+
       </div>
     </DialogContent>
   );

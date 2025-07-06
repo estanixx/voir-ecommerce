@@ -34,7 +34,7 @@ export const VoirHeader = ({
 
       gsap.to(logoWrapper, {
         width: "auto",
-        delay: 2,
+        delay: 0,
         duration: 1.5,
         ease: "power2.out",
       });
@@ -46,7 +46,7 @@ export const VoirHeader = ({
           {
             opacity: 1,
             y: 0,
-            delay: 2 + i * 0.3,
+            delay: 0 + i * 0.3,
             duration: 0.5,
             ease: "power3.out",
           }
