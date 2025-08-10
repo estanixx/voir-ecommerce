@@ -235,7 +235,7 @@ export default function CartModal() {
                       <p className="text-neutral-600 dark:text-neutral-400">
                         Envío
                       </p>
-                      <p className="font-medium">Calculado al finalizar</p>
+                      <p className="font-medium">Gratis</p>
                     </div>
                     <div className="mb-4 flex items-center justify-between border-t border-neutral-200 pt-3 dark:border-neutral-700">
                       <p className="font-bold">Total</p>

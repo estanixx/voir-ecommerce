@@ -27,14 +27,15 @@ function Navbar$({
   // Usamos una sola línea de tiempo para sincronizar todas las animaciones de scroll
   const tl = useRef<gsap.core.Timeline>(null);
 
+  const activeBackgroundColor = "rgba(255, 255, 255, 1)";
+  const activeTextColor = "#000000";
+  const inactiveTextColor = "#ffffff";
+
   useGSAP(
     () => {
       const navbarElement = navbarRef.current;
       if (!navbarElement) return;
 
-      const activeBackgroundColor = "rgba(255, 255, 255, 1)";
-      const activeTextColor = "#000000";
-      const inactiveTextColor = "#FFFFFF";
 
       // --- Timeline para el ScrollTrigger ---
       tl.current = gsap
@@ -98,7 +99,7 @@ function Navbar$({
   return (
     <nav
       ref={navbarRef}
-      className="flex items-center px-4 py-2 lg:px-6 fixed top-0 left-0 w-full bg-transparent z-[99] text-white"
+      className={`flex items-center px-4 py-2 lg:px-6 fixed top-0 left-0 w-full bg-transparent z-[99] text-white`}
       onMouseLeave={isShopMenuHovered ? handleShopMenuMouseLeave : undefined}
     >
       <div className="block flex-none md:hidden">

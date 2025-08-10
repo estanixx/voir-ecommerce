@@ -32,6 +32,7 @@ export default async function CategoryPage(props: {
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
+  const collection = await getCollection(params.collection);
   let products = await getCollectionProducts({
     collection: params.collection,
     sortKey,
@@ -45,10 +46,16 @@ export default async function CategoryPage(props: {
   );
   return (
     <section className="">
-      {products.length === 0 ? (
+      {products.length === 0 && collection?.title && collection?.description ? (
         <p className="py-3 text-lg">{`No se encontraron productos de esta colección`}</p>
       ) : (
-        <ProductList products={bundles} />
+        <>
+          <div className="my-6">
+            <h1 className='text-3xl font-bold mb-4 text-white'>{collection?.title}</h1>
+            <p className='text-white'>{collection?.description}</p>
+          </div>
+          <ProductList products={products} />
+        </>
       )}
       {bundles.length > 0 ? (
         <div className="mt-8">

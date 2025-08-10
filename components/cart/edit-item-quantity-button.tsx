@@ -43,14 +43,13 @@ export function EditItemQuantityButton({
 }) {
   const [message, formAction] = useActionState(updateItemQuantity, null);
   const [isPending, startTransition] = useTransition();
-
   const payload = {
     merchandiseId: item.merchandise.id,
     quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
   };
   
   // The original component was missing this logic for the button's disabled state
-  const isAvailable = item.merchandise.availableForSale;
+  const isAvailable = item.merchandise.product.availableForSale;
   // Disable the plus button if the variant is not available for sale.
   const isDisabled = type === 'plus' && !isAvailable;
 

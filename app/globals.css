@@ -136,3 +136,10 @@ html {
     transform: rotate(-90deg) translateX(100%);
     transform-origin: 100% 100%;
 }
+
+.orbitron-regular {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}

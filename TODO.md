@@ -8,3 +8,8 @@
 ap crown store.
 undergold basarse para newsletter.
 son of son **
+
+
+# Landing
+- [ ] Días de preventa reemplazo newsletter por código
+- [ ]

@@ -1,6 +1,6 @@
 import { DesktopGrid } from "./desktop-grid";
 import { MobileList } from "./mobile-list";
-import { BackgroundTransition } from '../shared/background-transition';
+import { BackgroundTransition } from "../shared/background-transition";
 
 // Los datos se mantienen aquí para ser pasados a los componentes hijos.
 const productData = [

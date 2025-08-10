@@ -24,7 +24,7 @@ export function GridTileImage({
   return (
     <div
       className={clsx(
-        "group relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 ease-in-out hover:shadow-xl dark:bg-zinc-900",
+        "group relative flex h-full w-full items-center justify-center overflow-hidden bg-white shadow-md transition-all duration-300 ease-in-out hover:shadow-xl dark:bg-zinc-900",
         {
           "border-2 border-blue-600": active,
           "border border-neutral-200 dark:border-zinc-800": !active,

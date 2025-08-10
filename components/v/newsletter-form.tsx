@@ -13,8 +13,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-// import { toast } from 'sonner'
 import { graffiti } from '@/fonts'
+// import { toast } from 'sonner'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Correo electrónico inválido' }),
@@ -53,17 +53,15 @@ export default function NewsletterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" py-10 bg-black full px-4 text-white">
-        <h2 className={`2xl:text-5xl xl:text-4xl lg:text-4xl text-3xl text-center mb-8 ${graffiti.className }`} >Newsletter</h2>
-        <div className="flex flex-col justify-center h-full gap-3 max-w-md mx-auto ">
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" py-5  full px-4 text-white">
+        <div className="flex flex-col justify-center  h-full gap-2 max-w-sm mx-auto bg">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Correo electrónico</FormLabel>
                 <FormControl>
-                  <Input placeholder="ejemplo@correo.com" {...field} />
+                  <Input placeholder="Correo electrónico" {...field} className='rounded-none' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -74,18 +72,17 @@ export default function NewsletterForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nombre</FormLabel>
                 <FormControl>
-                  <Input placeholder="Tu nombre" {...field} />
+                  <Input placeholder="Nombre" {...field} className='rounded-none'/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground text-center">
             Para recibir información y promociones relacionadas con nuestro negocio.
           </p>
-          <Button variant="secondary" type="submit">Suscribirme</Button>
+          <Button variant="secondary" type="submit" className='rounded-none'>Suscribirme</Button>
         </div>
       </form>
     </Form>

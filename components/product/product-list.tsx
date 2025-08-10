@@ -62,7 +62,7 @@ export default function ProductList({
       {/* The ref remains on your main Grid component */}
       <Grid
         ref={container}
-        className={clsx(className || "grid-cols-1 sm:grid-cols-2")}
+        className={clsx(className || "grid-cols-1 sm:grid-cols-2 xl:gap-20 lg:gap-20 md:gap-20 sm:gap-10 gap-5")}
       >
         <ProductGridItems products={products} />
       </Grid>

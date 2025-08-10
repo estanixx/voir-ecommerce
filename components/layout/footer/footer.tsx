@@ -29,20 +29,15 @@ export default async function Footer() {
 
   return (
     <footer className="text-sm text-neutral-500 bg-white  border-t border-neutral-200 ">
-      <div className="mx-auto w-full max-w-7xl flex flex-col md:flex-row md:justify-between gap-10 md:gap-12 px-6 py-12 text-sm">
+      <div className="w-full lg:w-11/12 mx-auto flex flex-col md:flex-row md:justify-between gap-10 md:gap-12 px-6 py-12 text-sm">
         {/* Section 1: Logo, Name, Social Media */}
-        <div className="flex flex-col items-center md:items-start md:flex-shrink-0 md:w-auto space-y-6 text-center md:text-left">
+        <div className="flex flex-col items-center justify-between md:items-start md:flex-shrink-0 md:w-auto space-y-6 text-center md:text-left">
           <Link
             className="flex flex-col items-center justify-center gap-1 text-black dark:text-white"
             href="/"
           >
             {/* Adjusted font size and spacing for better responsiveness */}
-            <span
-              className={`block text-center uppercase ${fonts.logo.className} scale-x-150 tracking-wide text-3xl sm:text-4xl lg:text-5xl mb-[-15px] sm:mb-[-20px] lg:mb-[-25px]`}
-            >
-              {copyrightName}
-            </span>
-            <LogoIcon className="fill-black size-10 sm:size-12" />
+            <LogoIcon className="fill-black size-12 sm:size-16" />
           </Link>
           <div className="pt-2">
             {" "}
@@ -92,7 +87,7 @@ export default async function Footer() {
             >
               <span className="scale-x-150 w-full">BRAND</span>
             </h3>
-            <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">
+            <p className="text-justify text-xs leading-relaxed text-neutral-600 dark:text-neutral-300">
               Voir no es solo una marca; es una visión. Cada gorra es un símbolo
               de autenticidad y propósito, creada para quienes ven más allá de
               lo superficial y buscan algo que los represente. No seguimos
