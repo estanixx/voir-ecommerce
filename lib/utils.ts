@@ -57,7 +57,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-type dateDifference = { days: number, hours:number, minutes:number, seconds:number }
+export type dateDifference = { days: number | string, hours:number | string, minutes:number | string, seconds:number | string }
 export function getDateDifference(date1: Date, date2: Date): dateDifference {
   const diffMs = Math.abs(date1.getTime() - date2.getTime()); // Diferencia en milisegundos
 

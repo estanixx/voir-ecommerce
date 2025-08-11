@@ -49,7 +49,7 @@ export function EditItemQuantityButton({
   };
   
   // The original component was missing this logic for the button's disabled state
-  const isAvailable = item.merchandise.product.availableForSale;
+  const isAvailable = item.merchandise.availableForSale;
   // Disable the plus button if the variant is not available for sale.
   const isDisabled = type === 'plus' && !isAvailable;
 

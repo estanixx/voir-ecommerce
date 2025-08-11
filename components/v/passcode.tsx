@@ -1,7 +1,7 @@
 "use client"
-import { complementary, graffiti } from '@/fonts';
+import { complementary } from '@/fonts';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import * as Tone from "tone";
 import LogoIcon from '../icons/logo';
 

@@ -1,7 +1,7 @@
 "use client";
 import * as fonts from "@/fonts";
-import { PRESALE_DATE, SALE_DATE } from "@/lib/constants";
-import { getDateDifference } from "@/lib/utils";
+import { SALE_DATE } from "@/lib/constants";
+import { getDateDifference, dateDifference } from "@/lib/utils";
 
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,7 @@ export const CountDown = () => {
         const diff = getDateDifference(now, SALE_DATE);
         Object.keys(diff).forEach((k: string) => {
           if (diff[k as keyof dateDifference]){
-            if (diff[k as keyof dateDifference] < 10) {
+            if (Number(diff[k as keyof dateDifference]) < 10) {
               diff[k as keyof dateDifference] = "0" + diff[k as keyof dateDifference];
             }
           }

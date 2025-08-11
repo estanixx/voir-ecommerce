@@ -26,7 +26,7 @@ export default async function RootLayout({
 }) {
   const localStorageKey = process.env.PASSCODE_LOCALSTORAGE_KEY!
   const passcodeValue = process.env.PREACCESS_CODE
-  if(!localStorageKey || !passcodeValue) throw new Error('Malo hhh');
+  if(!localStorageKey || !passcodeValue) throw new Error('Error de variables de entorno.');
   return (
     <PasscodeProvider localStorageKey={localStorageKey} passcodeValue={passcodeValue}>
     <html lang="en" translate="no" className={clsx(GeistSans.variable, "!p-0")}>
