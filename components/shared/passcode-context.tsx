@@ -29,13 +29,19 @@ export function PasscodeProvider({ children, localStorageKey, passcodeValue }: {
   const [sale, setSale] = useState<boolean>(() => new Date().getTime() >= SALE_DATE.getTime());
   const passcodeIsCorrect = passcode === passcodeValue;
 
-  // useEffect to load from localStorage
+  // useEffect to load from cookies
   useEffect(() => {
+    // Get passcode from localStorage for backward compatibility
     const storedPasscode = localStorage.getItem(localStorageKey) || '';
+    
+    // Set the passcode state
     $setPasscode(storedPasscode);
     setLoading(false);
-
-    // 3. Set loading to false after the passcode has been loaded
+    
+    // Also store in cookies for middleware access
+    if (storedPasscode) {
+      document.cookie = `${localStorageKey}=${storedPasscode}; path=/; max-age=31536000`; // 1 year expiry
+    }
   }, [localStorageKey]);
 
   // Protection useEffect
@@ -61,7 +67,12 @@ export function PasscodeProvider({ children, localStorageKey, passcodeValue }: {
 
 
   const setPasscode = (passcode: string) => {
+    // Store in localStorage for backward compatibility
     localStorage.setItem(localStorageKey, passcode);
+    
+    // Also store in cookies for middleware access
+    document.cookie = `${localStorageKey}=${passcode}; path=/; max-age=31536000`; // 1 year expiry
+    
     $setPasscode(passcode);
   };
 
