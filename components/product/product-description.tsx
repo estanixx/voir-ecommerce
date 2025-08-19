@@ -51,7 +51,7 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6  text-black">
-        <h1 className="mb-2 text-5xl font-medium">{product.title}</h1>
+        <h2 className="mb-2 text-5xl font-medium">{product.title}</h2>
         <p className="text-sm my-2 ">
           Impuesto incluido. Los gastos de envío se calculan en la pantalla de
           pago.

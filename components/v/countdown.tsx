@@ -31,8 +31,8 @@ export const CountDown = () => {
     };
   }, []);
   return (
-    <div className={`${fonts.clock.className} text-white w-full text-center  text-[90px] md:text-[140px]`}>
+    <h3 className={`${fonts.clock.className} text-white w-full text-center  text-[90px] md:text-[140px]`}>
       {remainingTime}
-    </div>
+    </h3>
   );
 };

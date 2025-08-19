@@ -3,20 +3,54 @@ import { ReactNode } from "react";
 import "./globals.css";
 import clsx from "clsx";
 
-import { baseUrl } from "@/lib/utils";
 import { PasscodeProvider } from "@/components/shared/passcode-context";
-const { SITE_NAME } = process.env;
-
+import { SITE } from "@/lib/seo";
+import { Viewport } from "next";
+import { Toaster } from "@/components/ui/sonner";
 export const metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: SITE_NAME!,
-    template: `${SITE_NAME} | %s`,
+    default: SITE.name,
+    template: `${SITE.name} %s`,
+  },
+  description: SITE.description,
+  alternates: {
+    canonical: SITE.url,
+  },
+  openGraph: {
+    type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: SITE.name,
+    description: SITE.description,
+    images: [{ url: SITE.ogImage }],
+    locale: SITE.locale,
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: SITE.twitter || undefined,
+    creator: SITE.twitter || undefined,
+    title: SITE.name,
+    description: SITE.description,
+    images: [SITE.ogImage],
   },
   robots: {
-    follow: true,
     index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
+  icons: { icon: "/favicon.ico" },
+  category: "ecommerce",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
 };
 
 export default async function RootLayout({
@@ -24,14 +58,25 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const localStorageKey = process.env.PASSCODE_LOCALSTORAGE_KEY!
-  const passcodeValue = process.env.PREACCESS_CODE
-  if(!localStorageKey || !passcodeValue) throw new Error('Error de variables de entorno.');
+  const localStorageKey = process.env.PASSCODE_LOCALSTORAGE_KEY!;
+  const passcodeValue = process.env.PREACCESS_CODE;
+  if (!localStorageKey || !passcodeValue)
+    throw new Error("Error de variables de entorno.");
   return (
-    <PasscodeProvider localStorageKey={localStorageKey} passcodeValue={passcodeValue}>
-    <html lang="en" translate="no" className={clsx(GeistSans.variable, "!p-0")}>
-      <body className="bg-black !m-0 !p-0">{children}</body>
-    </html>
+    <PasscodeProvider
+      localStorageKey={localStorageKey}
+      passcodeValue={passcodeValue}
+    >
+      <html
+        lang="en"
+        translate="no"
+        className={clsx(GeistSans.variable, "!p-0")}
+      >
+        <body className="bg-black !m-0 !p-0">
+          {children}
+          <Toaster />
+        </body>
+      </html>
     </PasscodeProvider>
   );
 }

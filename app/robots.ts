@@ -1,9 +1,9 @@
-import { baseUrl } from '@/lib/utils';
+import { SITE } from "@/lib/seo";
+import { MetadataRoute } from "next";
 
-export default function robots() {
+export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
+    rules: {
         userAgent: '*',
         allow: '/',
         disallow: [
@@ -11,9 +11,8 @@ export default function robots() {
           '/v/*',  // Disallow indexing of the landing page if it's not meant for public discovery
           '/*?*',   // Prevent indexing of URL parameters to avoid duplicate content
         ]
-      }
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl
+      },
+    sitemap: `${SITE.url}/sitemap.xml`,
+    host: SITE.url
   };
 }

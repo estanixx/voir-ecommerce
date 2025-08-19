@@ -44,8 +44,8 @@ export type Collection = ShopifyCollection & {
 export type Image = {
   url: string;
   altText: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 };
 
 export type Menu = {
@@ -121,6 +121,7 @@ export type ShopifyCollection = {
   description: string;
   seo: SEO;
   updatedAt: string;
+  image: Image;
 };
 
 export type ShopifyMetaobject = {

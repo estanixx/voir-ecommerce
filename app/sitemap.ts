@@ -1,5 +1,6 @@
+import { SITE } from '@/lib/seo';
 import { getCollections, getPages, getProducts } from '@/lib/shopify';
-import { baseUrl, validateEnvironmentVariables } from '@/lib/utils';
+import { validateEnvironmentVariables } from '@/lib/utils';
 import { MetadataRoute } from 'next';
 
 type Route = {
@@ -13,27 +14,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   validateEnvironmentVariables();
 
   const routesMap = [''].map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${SITE.url}${route}`,
     lastModified: new Date().toISOString()
   }));
 
   const collectionsPromise = getCollections().then((collections) =>
     collections.map((collection) => ({
-      url: `${baseUrl}${collection.path}`,
+      url: `${SITE.url}${collection.path}`,
       lastModified: collection.updatedAt
     }))
   );
 
   const productsPromise = getProducts({}).then((products) =>
     products.map((product) => ({
-      url: `${baseUrl}/product/${product.handle}`,
+      url: `${SITE.url}/product/${product.handle}`,
       lastModified: product.updatedAt
     }))
   );
 
   const pagesPromise = getPages().then((pages) =>
     pages.map((page) => ({
-      url: `${baseUrl}/${page.handle}`,
+      url: `${SITE.url}/${page.handle}`,
       lastModified: page.updatedAt
     }))
   );

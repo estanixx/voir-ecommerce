@@ -1,4 +1,4 @@
-'use client'
+
 export function WhiteMonogram({ className='' }){
   return (
 <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1789.02 1766.71" className={className}>

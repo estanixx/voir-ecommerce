@@ -8,9 +8,9 @@ import { VoirVideoHeader } from "@/components/home/voir-video-header";
 const { SITE_NAME } = process.env;
 
 export const metadata: Metadata = {
-  title: `One Way`,
+  title: `Oficcial Store – Premium Caps`,
   description:
-    "Discover Voir, a fashion-forward brand dedicated to clarity, vision, and progress. Explore our curated collections, including the latest 'Illuminare' line, and find your way forward in style.",
+    "En VOIR, cuando el camino se despeja la luz aparece. Diseñamos gorras premium inspiradas en cada fase del día y en la filosofía One Way. Descubre nuestras ediciones limitadas y suscríbete para acceder a la preventa.",
   robots: {
     follow: true,
     index: true,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `One Way`,
     description:
-      "Discover Voir, a fashion-forward brand dedicated to clarity, vision, and progress.",
+      "Gorras de alta calidad con ediciones limitadas inspiradas en la luz de la colección Illuminare. Descubre VOIR y suscríbete para ser el primero en conocer el lanzamiento.",
     type: "website",
     images: [
       {

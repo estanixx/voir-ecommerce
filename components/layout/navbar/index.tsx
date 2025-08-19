@@ -18,7 +18,7 @@ function Navbar$({
   // shopMenus = {} ,
 }: {
   menu: Menu[];
-  shopMenus: { [key:string]: Menu[] };
+  shopMenus: { [key: string]: Menu[] };
 }) {
   gsap.registerPlugin(ScrollTrigger);
   const navbarRef = useRef<HTMLElement>(null);
@@ -36,7 +36,6 @@ function Navbar$({
       const navbarElement = navbarRef.current;
       if (!navbarElement) return;
 
-
       // --- Timeline para el ScrollTrigger ---
       tl.current = gsap
         .timeline({
@@ -48,7 +47,11 @@ function Navbar$({
           },
         })
         .to(navbarElement, { backgroundColor: activeBackgroundColor }, 0)
-        .to(navbarElement.querySelectorAll("a, button, svg"), { color: activeTextColor }, 0)
+        .to(
+          navbarElement.querySelectorAll("a, button, svg"),
+          { color: activeTextColor },
+          0
+        )
         // 1. El monograma desaparece
         .to(".monogram-container", { opacity: 0 }, 0)
         // 2. Las letras de "VOIR" aparecen en su lugar, con un efecto escalonado
@@ -56,22 +59,54 @@ function Navbar$({
 
       // --- Lógica para el Hover ---
       const handleNavbarMouseEnter = () => {
-        gsap.to(navbarElement, { backgroundColor: activeBackgroundColor, duration: 0.2, overwrite: "auto" });
-        gsap.to(navbarElement.querySelectorAll("a, button, svg"), { color: activeTextColor, duration: 0.2, overwrite: "auto" });
+        gsap.to(navbarElement, {
+          backgroundColor: activeBackgroundColor,
+          duration: 0.2,
+          overwrite: "auto",
+        });
+        gsap.to(navbarElement.querySelectorAll("a, button, svg"), {
+          color: activeTextColor,
+          duration: 0.2,
+          overwrite: "auto",
+        });
         // Solo animar el monograma si estamos en la parte superior de la página
         if (tl.current?.scrollTrigger?.progress === 0) {
-          gsap.to(".white-monogram-nav", { opacity: 0, duration: 0.2, overwrite: "auto" });
-          gsap.to(".black-monogram-nav", { opacity: 1, duration: 0.2, overwrite: "auto" });
+          gsap.to(".white-monogram-nav", {
+            opacity: 0,
+            duration: 0.2,
+            overwrite: "auto",
+          });
+          gsap.to(".black-monogram-nav", {
+            opacity: 1,
+            duration: 0.2,
+            overwrite: "auto",
+          });
         }
       };
 
       const handleNavbarMouseLeave = () => {
         // Solo revertir al estado transparente si estamos en la parte superior
         if (tl.current?.scrollTrigger?.progress === 0) {
-          gsap.to(navbarElement, { backgroundColor: "transparent", duration: 0.2, overwrite: "auto" });
-          gsap.to(navbarElement.querySelectorAll("a, button, svg"), { color: inactiveTextColor, duration: 0.2, overwrite: "auto" });
-          gsap.to(".white-monogram-nav", { opacity: 1, duration: 0.2, overwrite: "auto" });
-          gsap.to(".black-monogram-nav", { opacity: 0, duration: 0.2, overwrite: "auto" });
+          gsap.to(navbarElement, {
+            backgroundColor: "transparent",
+            duration: 0.2,
+            overwrite: "auto",
+          });
+          gsap.to(navbarElement.querySelectorAll("a, button, svg"), {
+            color: inactiveTextColor,
+            duration: 0.2,
+            overwrite: "auto",
+          });
+          gsap.to(".white-monogram-nav", {
+            opacity: 1,
+            duration: 0.2,
+            overwrite: "auto",
+          });
+          gsap.to(".black-monogram-nav", {
+            opacity: 0,
+            duration: 0.2,
+            overwrite: "auto",
+          });
         }
       };
 
@@ -85,15 +120,25 @@ function Navbar$({
     },
     { scope: navbarRef }
   );
-  
+
   // (La lógica del menú desplegable no necesita cambios)
   const handleShopMenuMouseEnter = () => {
     setIsShopMenuHovered(true);
-    gsap.to(".dropdown-menu", { opacity: 1, height: "auto", duration: 0.3, display: "block" });
+    gsap.to(".dropdown-menu", {
+      opacity: 1,
+      height: "auto",
+      duration: 0.3,
+      display: "block",
+    });
   };
   const handleShopMenuMouseLeave = () => {
     setIsShopMenuHovered(false);
-    gsap.to(".dropdown-menu", { opacity: 0, height: 0, duration: 0.3, display: "none" });
+    gsap.to(".dropdown-menu", {
+      opacity: 0,
+      height: 0,
+      duration: 0.3,
+      display: "none",
+    });
   };
 
   return (
@@ -111,19 +156,33 @@ function Navbar$({
         <div className="hidden justify-start md:flex md:w-1/3">
           <ul className="hidden gap-6 text-sm md:flex md:items-center">
             {menu.map((item) => (
-              <li key={item.title} onMouseEnter={item.path === "/search/all" ? handleShopMenuMouseEnter : undefined}>
-                <Link href={item.path} prefetch={true} className="underline-offset-4 hover:underline font-medium">
+              <li
+                key={item.title}
+                onMouseEnter={
+                  item.path === "/shop/all"
+                    ? handleShopMenuMouseEnter
+                    : undefined
+                }
+              >
+                <Link
+                  href={item.path}
+                  prefetch={true}
+                  className="underline-offset-4 hover:underline font-medium"
+                >
                   {item.title}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        
+
         {/* --- CONTENEDOR CENTRAL MODIFICADO --- */}
         <div className="flex w-full md:w-1/3 justify-center">
-          <Link href="/" prefetch={true} className="relative flex items-center justify-center h-12 w-12">
-            
+          <Link
+            href="/"
+            prefetch={true}
+            className="relative flex items-center justify-center h-12 w-12"
+          >
             {/* El monograma original, que se ocultará con el scroll */}
             <div className="monogram-container absolute inset-0">
               <WhiteMonogram className="white-monogram-nav absolute inset-0 size-full" />
@@ -131,9 +190,14 @@ function Navbar$({
             </div>
 
             {/* El texto "VOIR" que aparecerá con el scroll */}
-            <h2 className={`${fonts.logo.className} text-5xl flex items-center justify-center gap-1`}>
-              {['V', 'O', 'I', 'R'].map((letter, i) => (
-                <span key={i} className="nav-letter opacity-0 -translate-y-3 scale-x-150">
+            <h2
+              className={`${fonts.logo.className} text-5xl flex items-center justify-center gap-1`}
+            >
+              {["V", "O", "I", "R"].map((letter, i) => (
+                <span
+                  key={i}
+                  className="nav-letter opacity-0 -translate-y-3 scale-x-150"
+                >
                   {letter}
                 </span>
               ))}
