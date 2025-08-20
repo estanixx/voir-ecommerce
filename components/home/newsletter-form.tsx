@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-// import { toast } from 'sonner'
+import { toast } from 'sonner'
 import { graffiti } from '@/fonts'
 
 const formSchema = z.object({
@@ -30,25 +30,26 @@ export default function NewsletterForm() {
     },
   })
 
-  const onSubmit = async (/*values: {[key:string]: string}*/) => {
-    // try {
-    //   const res = await fetch('/api/newsletter-form', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ email: values.email, name: values.name, birthday: values.birthday }),
-    //   })
+  const onSubmit = async (values: {[key:string]: string}) => {
+    try {
+      const res = await fetch('/api/newsletter-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: values.email, name: values.name }),
+      })
 
-    //   if (!res.ok) throw new Error('Error al enviar el formulario')
+      if (!res.ok) throw new Error('Error al enviar el formulario')
 
-    //   toast.success('¡Suscripción exitosa! Gracias por suscribirte a nuestro boletín.')
+      toast.success(`Ahora eres parte del camino, ${values.name}.`)
 
-    //   form.reset()
-    // } catch (error) {
-    //   toast.error('Error al suscribirte. Por favor, intenta nuevamente.')
-    //   console.error(error)
-    // }
+
+      form.reset()
+    } catch (error) {
+      toast.error('Error al suscribirte. Por favor, intenta nuevamente.')
+      console.error(error)
+    }
   }
 
   return (
@@ -63,7 +64,7 @@ export default function NewsletterForm() {
               <FormItem>
                 <FormLabel>Correo electrónico</FormLabel>
                 <FormControl>
-                  <Input placeholder="ejemplo@correo.com" {...field} />
+                  <Input placeholder="Tu correo electrónico" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

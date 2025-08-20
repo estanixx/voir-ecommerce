@@ -20,7 +20,7 @@ export const IlluminareSection = () => {
           ILUMINARE
         </h1>
         <Link
-          href={"/search/illuminare"}
+          href={"/shop/illuminare"}
           className="text-sm sm:text-md px-3 py-1.5 sm:px-4 sm:py-2 font-semibold mt-3 sm:mt-4 z-50 cursor-pointer"
           passHref
         >

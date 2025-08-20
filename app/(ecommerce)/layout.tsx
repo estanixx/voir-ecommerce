@@ -21,10 +21,12 @@ export default async function EcommerceLayout({
 
   const cart = getCart();
 
+
   return (
     <CartProvider cartPromise={cart}>
       {/* <BackgroundTransition /> */}
       <Navbar menu={headerMenu} shopMenus={navShopMenus} />
+
       <main className={`${fonts.complementary.className} relative w-full`}>
         {children}
       </main>

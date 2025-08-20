@@ -9,7 +9,7 @@ const HomeImage = ({
   message: string;
 }) => {
   return (
-    <Link className="group relative block w-1/3" href="/search/Iluminare">
+    <Link className="group relative block w-1/3" href="/shop/Iluminare">
       <div
         className="absolute w-full h-full bg-black opacity-0 transition-opacity group-hover:opacity-100"
         style={{ backgroundColor: "rgb(0, 0, 0, 0.6)" }}

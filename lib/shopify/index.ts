@@ -64,6 +64,7 @@ import {
 } from "./types";
 import { getMetaObjectQuery } from "./queries/metaobject";
 import { customerCreateMutation } from "./mutations/customer";
+import { SITE } from "../seo";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
@@ -152,7 +153,7 @@ const reshapeCollection = (
 
   return {
     ...collection,
-    path: `/search/${collection.handle}`,
+    path: `/shop/${collection.handle}`,
   };
 };
 
@@ -362,7 +363,11 @@ export async function getCollections(): Promise<Collection[]> {
         title: "All",
         description: "All products",
       },
-      path: "/search",
+      image: {
+        url: SITE.ogImage,
+        altText: SITE.name,
+      },
+      path: "/shop",
       updatedAt: new Date().toISOString(),
     },
     // Filter out the `hidden` collections.
@@ -392,7 +397,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
       title: item.title,
       path: item.url
         .replace(domain, "")
-        .replace(/\/collections(\/all)?/, "/search")
+        .replace(/\/collections(\/all)?/, "/shop")
         .replace("/pages", ""),
     })) || []
   );

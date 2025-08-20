@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Dialog, Transition } from '@headlessui/react';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Fragment, Suspense, useEffect, useState } from 'react';
+import { Dialog, Transition } from "@headlessui/react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Fragment, Suspense, useEffect, useState } from "react";
 
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu as MenuType } from '@/lib/shopify/types'; // Renamed to avoid conflict with component name
-import Search, { SearchSkeleton } from './search';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Menu as MenuType } from "@/lib/shopify/types"; // Renamed to avoid conflict with component name
+import Search, { SearchSkeleton } from "./search";
 
 export default function MobileMenu({ menu }: { menu: MenuType[] }) {
   const pathname = usePathname();
@@ -18,12 +18,13 @@ export default function MobileMenu({ menu }: { menu: MenuType[] }) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 768) { // md breakpoint
+      if (window.innerWidth > 768) {
+        // md breakpoint
         setIsOpen(false);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isOpen]); // Dependency remains isOpen, as we only care about closing if it's open and resize occurs
 
   useEffect(() => {
@@ -42,7 +43,9 @@ export default function MobileMenu({ menu }: { menu: MenuType[] }) {
       </button>
 
       <Transition show={isOpen} as={Fragment}>
-        <Dialog onClose={closeMobileMenu} className="relative z-100 md:hidden"> {/* Ensure it's hidden on md screens via class too */}
+        <Dialog onClose={closeMobileMenu} className="relative z-100 md:hidden">
+          {" "}
+          {/* Ensure it's hidden on md screens via class too */}
           {/* Backdrop */}
           <Transition.Child
             as={Fragment}
@@ -53,10 +56,12 @@ export default function MobileMenu({ menu }: { menu: MenuType[] }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
+            <div
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+              aria-hidden="true"
+            />
             {/* Increased backdrop opacity and consistent blur */}
           </Transition.Child>
-
           {/* Panel */}
           <Transition.Child
             as={Fragment}
@@ -102,9 +107,10 @@ export default function MobileMenu({ menu }: { menu: MenuType[] }) {
                               prefetch={true}
                               onClick={closeMobileMenu}
                               className={`block rounded-md px-3 py-2.5 text-base font-medium transition-all duration-150 ease-in-out
-                                ${isActive
-                                  ? 'bg-blue-600 text-white shadow-sm' // Active state
-                                  : 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-200 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 dark:active:bg-neutral-700'
+                                ${
+                                  isActive
+                                    ? "bg-blue-600 text-white shadow-sm" // Active state
+                                    : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-200 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-100 dark:active:bg-neutral-700"
                                 }`}
                             >
                               {item.title}

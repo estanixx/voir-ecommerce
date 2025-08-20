@@ -13,3 +13,5 @@ son of son **
 # Landing
 - [ ] Días de preventa reemplazo newsletter por código
 - [ ]
+
+- [ ] Codigo de acceso en correos

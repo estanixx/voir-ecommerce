@@ -4,13 +4,13 @@ import ModalTrigger from "@/components/home/newsletter-modal";
 
 import { type Metadata } from "next";
 import { VoirVideoHeader } from "@/components/home/voir-video-header";
+import { SITE } from "@/lib/seo";
 
-const { SITE_NAME } = process.env;
 
 export const metadata: Metadata = {
-  title: `One Way`,
+  title: `Oficcial Store – Premium Caps`,
   description:
-    "Discover Voir, a fashion-forward brand dedicated to clarity, vision, and progress. Explore our curated collections, including the latest 'Illuminare' line, and find your way forward in style.",
+    "En VOIR, cuando el camino se despeja la luz aparece. Diseñamos gorras premium inspiradas en cada fase del día y en la filosofía One Way. Descubre nuestras ediciones limitadas y suscríbete para acceder a la preventa.",
   robots: {
     follow: true,
     index: true,
@@ -19,20 +19,12 @@ export const metadata: Metadata = {
     canonical: "/", // Sets the canonical URL for the homepage
   },
   openGraph: {
-    url: "/", // The canonical URL for Open Graph
-    siteName: SITE_NAME,
-    title: `One Way`,
+    url: `${SITE.url}`, // The canonical URL for Open Graph
+    siteName: SITE.name,
+    title: `${SITE.name} Oficcial Store – Premium Caps`,
     description:
-      "Discover Voir, a fashion-forward brand dedicated to clarity, vision, and progress.",
+      "Gorras de alta calidad con ediciones limitadas inspiradas en la luz de la colección Illuminare. Descubre VOIR y suscríbete para ser el primero en conocer el lanzamiento.",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image.tsx", // Your Open Graph image file
-        width: 1200,
-        height: 630,
-        alt: `The official logo and branding for Voir`,
-      },
-    ],
   },
 };
 
