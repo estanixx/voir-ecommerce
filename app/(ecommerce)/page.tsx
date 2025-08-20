@@ -4,6 +4,7 @@ import ModalTrigger from "@/components/home/newsletter-modal";
 
 import { type Metadata } from "next";
 import { VoirVideoHeader } from "@/components/home/voir-video-header";
+import { SITE } from "@/lib/seo";
 
 const { SITE_NAME } = process.env;
 
@@ -19,20 +20,12 @@ export const metadata: Metadata = {
     canonical: "/", // Sets the canonical URL for the homepage
   },
   openGraph: {
-    url: "/", // The canonical URL for Open Graph
+    url: `${SITE.url}`, // The canonical URL for Open Graph
     siteName: SITE_NAME,
-    title: `One Way`,
+    title: `${SITE.name} Oficcial Store – Premium Caps`,
     description:
       "Gorras de alta calidad con ediciones limitadas inspiradas en la luz de la colección Illuminare. Descubre VOIR y suscríbete para ser el primero en conocer el lanzamiento.",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image.tsx", // Your Open Graph image file
-        width: 1200,
-        height: 630,
-        alt: `The official logo and branding for Voir`,
-      },
-    ],
   },
 };
 

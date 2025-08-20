@@ -7,6 +7,7 @@ import { PasscodeProvider } from "@/components/shared/passcode-context";
 import { SITE } from "@/lib/seo";
 import { Viewport } from "next";
 import { Toaster } from "@/components/ui/sonner";
+import Head from "next/head";
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -23,7 +24,6 @@ export const metadata = {
     siteName: SITE.name,
     title: SITE.name,
     description: SITE.description,
-    images: [{ url: SITE.ogImage }],
     locale: SITE.locale,
   },
   twitter: {
@@ -72,6 +72,12 @@ export default async function RootLayout({
         translate="no"
         className={clsx(GeistSans.variable, "!p-0")}
       >
+        <Head>
+          <meta property="og:image" content="<generated>" />
+          <meta property="og:image:type" content="<generated>" />
+          <meta property="og:image:width" content="<generated>" />
+          <meta property="og:image:height" content="<generated>" />
+        </Head>
         <body className="bg-black !m-0 !p-0">
           {children}
           <Toaster />

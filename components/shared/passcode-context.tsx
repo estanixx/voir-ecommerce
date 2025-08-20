@@ -1,7 +1,6 @@
 "use client"
 import { createContext, ReactNode, useState, useEffect, useContext } from "react";
 import { PRESALE_DATE, SALE_DATE } from "@/lib/constants";
-import { useRouter } from 'next/navigation';
 
 type PasscodeContextType = {
   passcode: string;
@@ -21,10 +20,8 @@ export const PasscodeContext = createContext<PasscodeContextType>({
 
 export function PasscodeProvider({ children, localStorageKey, passcodeValue }: { children: ReactNode, localStorageKey: string, passcodeValue: string }) {
 
-  const router = useRouter();
 
   const [passcode, $setPasscode] = useState('');
-  const [isLoading, setLoading] = useState(true);
   const [presale, setPresale] = useState<boolean>(() => new Date().getTime() < SALE_DATE.getTime() && new Date().getTime() >= PRESALE_DATE.getTime());
   const [sale, setSale] = useState<boolean>(() => new Date().getTime() >= SALE_DATE.getTime());
   const passcodeIsCorrect = passcode === passcodeValue;
@@ -36,7 +33,6 @@ export function PasscodeProvider({ children, localStorageKey, passcodeValue }: {
     
     // Set the passcode state
     $setPasscode(storedPasscode);
-    setLoading(false);
     
     // Also store in cookies for middleware access
     if (storedPasscode) {
@@ -45,13 +41,7 @@ export function PasscodeProvider({ children, localStorageKey, passcodeValue }: {
   }, [localStorageKey]);
 
   // Protection useEffect
-  useEffect(() => {
-    // 2. Add a guard clause. Don't run logic until loading is finished.
-    // This logic is the same, but now it runs with the correct passcode state
-    if (!isLoading && !sale && (!presale || !passcodeIsCorrect)){ 
-      router.push('/v');
-    }
-  }, [sale, presale, router, passcodeIsCorrect, isLoading]) // Add new dependencies
+
 
   // Interval to check dates
   useEffect(() => {

@@ -6,9 +6,8 @@ import { PRESALE_DATE, SALE_DATE } from './lib/constants';
 export function middleware(request: NextRequest) {
   // Get the pathname of the request
   const path = request.nextUrl.pathname;
-
   // Define paths that are always accessible without any restrictions
-  const publicPaths = ['/v', '/api/', '_next', 'favicon.ico'];
+  const publicPaths = ['/v', '/api/', '_next', 'favicon.ico', '/resources', '/_next', '/404', '/500', '/og', '/opengraph', '/sitemap.xml', '/robots.txt'];
   
   // Skip middleware for public paths
   if (publicPaths.some(p => path.startsWith(p))) {
@@ -50,5 +49,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico).*)']
+  matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico|og|opengraph|resources|404|500|sitemap.xml|robots.txt).*)', '/((?!.*opengraph).*)']
 };
