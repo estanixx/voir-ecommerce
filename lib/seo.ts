@@ -13,4 +13,3 @@ export const SITE = {
   ogImage: "/opengraph-image", // ya tienes rutas OG en tu proyecto
   currency: "COP",
 };
-console.log(SITE.url)
