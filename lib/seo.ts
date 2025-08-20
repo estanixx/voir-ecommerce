@@ -1,6 +1,6 @@
 // app/seo.config.ts
 export const SITE = {
-  url: process.env.VERCEL_PROJECT_PRODUCTION_URL
+  url: process.env.VERCEL_PROJECT_PRODUCTION_URL 
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : 'http://localhost:3000',
   name: process.env.SITE_NAME || "VOIR",
@@ -13,3 +13,4 @@ export const SITE = {
   ogImage: "/opengraph-image", // ya tienes rutas OG en tu proyecto
   currency: "COP",
 };
+console.log(SITE.url)
