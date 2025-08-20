@@ -27,7 +27,7 @@ export default function LandingPage() {
         className='w-full h-screen fixed top-0 left-0 z-[-1]'
         priority
       />
-      <LogoIcon className="fill-white w-18 absolute top-9 right-9" />
+      <LogoIcon className="fill-white w-18 absolute top-9 md:right-9 md:translate-x-0 right-1/2 translate-x-1/2" />
       <div className="w-full flex flex-col h-screen items-center justify-center">
         <h1 className={`mt-6 text-3xl md:text-7xl text-center text-white tracking-widest ${graffiti.className} font-bold`}>
           Temporarily Close

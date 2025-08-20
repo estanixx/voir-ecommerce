@@ -2,7 +2,6 @@ import { ImageResponse } from 'next/og';
 import LogoIcon from './icons/logo';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
-import { SITE } from '@/lib/seo';
 
 export type Props = {
   title?: string;
@@ -19,13 +18,15 @@ export default async function OpengraphImage(
   };
 
   const file = await readFile(join(process.cwd(), '/fonts/FieldGothic15.woff'));
-  const img = SITE.url + '/resources/landing-bg.png';
+  const img = await readFile(join(process.cwd(), '/public/resources/landing-bg.png'));
+  const imgBase64 = img.toString('base64');
+  const imgData = `data:image/png;base64,${imgBase64}`;
   const font = Uint8Array.from(file).buffer;
 
   return new ImageResponse(
     (
       <div tw="flex h-full w-full flex-col items-center justify-center bg-black relative">
-        <img width={1200} height={630} src={img}  alt="OG Background" tw='absolute top-0 left-0 w-full h-full'/>
+        <img width={1200} height={630} src={imgData}  alt="OG Background" tw='absolute top-0 left-0 w-full h-full'/>
         <p tw="mb-[-20px] mt-12 text-[25vh] font-bold text-white tracking-wide scale-x-150 uppercase">{title}</p>
         <div tw="mt-[-20px] flex flex-none items-center justify-center h-[160px] w-[160px] rounded-3xl">
           <LogoIcon  fill="white" width='164px'/>
