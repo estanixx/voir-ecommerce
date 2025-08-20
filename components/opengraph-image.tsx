@@ -3,7 +3,6 @@ import LogoIcon from './icons/logo';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
 import { SITE } from '@/lib/seo';
-import Image from 'next/image';
 
 export type Props = {
   title?: string;
@@ -26,7 +25,7 @@ export default async function OpengraphImage(
   return new ImageResponse(
     (
       <div tw="flex h-full w-full flex-col items-center justify-center bg-black relative">
-        <Image width={1200} height={630} src={img}  alt="OG Background" tw='absolute top-0 left-0 w-full h-full'/>
+        <img width={1200} height={630} src={img}  alt="OG Background" tw='absolute top-0 left-0 w-full h-full'/>
         <p tw="mb-[-20px] mt-12 text-[25vh] font-bold text-white tracking-wide scale-x-150 uppercase">{title}</p>
         <div tw="mt-[-20px] flex flex-none items-center justify-center h-[160px] w-[160px] rounded-3xl">
           <LogoIcon  fill="white" width='164px'/>
