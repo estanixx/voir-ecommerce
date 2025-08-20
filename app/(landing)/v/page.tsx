@@ -13,7 +13,7 @@ export function generateMetadata() {
       index: true,
     },
     alternates: {
-      canonical: `${SITE.url}/v`, // Sets the canonical URL for the landing page
+      canonical: `/v`, // Sets the canonical URL for the landing page
     },
     openGraph: {
       url: `${SITE.url}/v`, // The canonical URL for Open Graph

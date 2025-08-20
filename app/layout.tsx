@@ -58,6 +58,42 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
+  const ldWebsite = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    url: SITE.url,
+    name: SITE.name,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE.url}/shop?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const ldOrg = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}${SITE.logo}`,
+    sameAs: [
+      SITE.twitter
+        ? `https://twitter.com/${SITE.twitter.replace("@", "")}`
+        : undefined,
+      SITE.instagram
+        ? `https://www.instagram.com/${SITE.instagram}`
+        : undefined,
+    ].filter(Boolean),
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: SITE.email,
+        contactType: "customer support",
+        areaServed: "CO",
+        availableLanguage: ["es"],
+      },
+    ],
+  };
   const localStorageKey = process.env.PASSCODE_LOCALSTORAGE_KEY!;
   const passcodeValue = process.env.PREACCESS_CODE;
   if (!localStorageKey || !passcodeValue)
@@ -79,6 +115,14 @@ export default async function RootLayout({
           <meta property="og:image:height" content="<generated>" />
         </Head>
         <body className="bg-black !m-0 !p-0">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(ldWebsite) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(ldOrg) }}
+          />
           {children}
           <Toaster />
         </body>

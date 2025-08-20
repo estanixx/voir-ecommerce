@@ -6,7 +6,6 @@ import { type Metadata } from "next";
 import { VoirVideoHeader } from "@/components/home/voir-video-header";
 import { SITE } from "@/lib/seo";
 
-const { SITE_NAME } = process.env;
 
 export const metadata: Metadata = {
   title: `Oficcial Store – Premium Caps`,
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     url: `${SITE.url}`, // The canonical URL for Open Graph
-    siteName: SITE_NAME,
+    siteName: SITE.name,
     title: `${SITE.name} Oficcial Store – Premium Caps`,
     description:
       "Gorras de alta calidad con ediciones limitadas inspiradas en la luz de la colección Illuminare. Descubre VOIR y suscríbete para ser el primero en conocer el lanzamiento.",
