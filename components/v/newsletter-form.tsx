@@ -51,7 +51,7 @@ export default function NewsletterForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" py-5  full px-4 text-white">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="py-5  full px-4 text-white">
         <div className="flex flex-col justify-center  h-full gap-2 max-w-sm mx-auto bg">
           <FormField
             control={form.control}

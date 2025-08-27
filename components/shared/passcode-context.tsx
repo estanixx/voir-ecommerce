@@ -1,6 +1,5 @@
 "use client"
 import { createContext, ReactNode, useState, useEffect, useContext } from "react";
-import { PRESALE_DATE, SALE_DATE } from "@/lib/constants";
 
 type PasscodeContextType = {
   passcode: string;
@@ -8,6 +7,8 @@ type PasscodeContextType = {
   presale: boolean;
   sale: boolean;
   passcodeIsCorrect: boolean;
+  saleDate?: Date;
+  presaleDate?: Date;
 }
 
 export const PasscodeContext = createContext<PasscodeContextType>({
@@ -18,12 +19,12 @@ export const PasscodeContext = createContext<PasscodeContextType>({
   passcodeIsCorrect: false,
 });
 
-export function PasscodeProvider({ children, localStorageKey, passcodeValue }: { children: ReactNode, localStorageKey: string, passcodeValue: string }) {
+export function PasscodeProvider({ children, localStorageKey, passcodeValue, saleDate, presaleDate }: { children: ReactNode, localStorageKey: string, passcodeValue: string, saleDate: Date, presaleDate: Date }) {
 
 
   const [passcode, $setPasscode] = useState('');
-  const [presale, setPresale] = useState<boolean>(() => new Date().getTime() < SALE_DATE.getTime() && new Date().getTime() >= PRESALE_DATE.getTime());
-  const [sale, setSale] = useState<boolean>(() => new Date().getTime() >= SALE_DATE.getTime());
+  const [presale, setPresale] = useState<boolean>(() => new Date().getTime() < saleDate.getTime() && new Date().getTime() >= presaleDate.getTime());
+  const [sale, setSale] = useState<boolean>(() => new Date().getTime() >= saleDate.getTime());
   const passcodeIsCorrect = passcode === passcodeValue;
 
   // useEffect to load from cookies
@@ -46,8 +47,8 @@ export function PasscodeProvider({ children, localStorageKey, passcodeValue }: {
   // Interval to check dates
   useEffect(() => {
     const interval = setInterval(() => {
-      setPresale(new Date().getTime() < SALE_DATE.getTime() && new Date().getTime() >= PRESALE_DATE.getTime());
-      setSale(new Date().getTime() >= SALE_DATE.getTime());
+      setPresale(new Date().getTime() < saleDate.getTime() && new Date().getTime() >= presaleDate.getTime());
+      setSale(new Date().getTime() >= saleDate.getTime());
     }, 1000);
     return () => {
       clearInterval(interval);
@@ -67,7 +68,7 @@ export function PasscodeProvider({ children, localStorageKey, passcodeValue }: {
   };
 
   return (
-    <PasscodeContext.Provider value={{ passcode, setPasscode, presale, sale, passcodeIsCorrect }}>
+    <PasscodeContext.Provider value={{ passcode, setPasscode, presale, sale, passcodeIsCorrect, saleDate, presaleDate }}>
       {children}
     </PasscodeContext.Provider>
   );

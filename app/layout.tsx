@@ -8,6 +8,7 @@ import { SITE } from "@/lib/seo";
 import { Viewport } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import Head from "next/head";
+import { PRESALE_DATE, SALE_DATE } from "@/lib/constants";
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -102,6 +103,8 @@ export default async function RootLayout({
     <PasscodeProvider
       localStorageKey={localStorageKey}
       passcodeValue={passcodeValue}
+      saleDate={SALE_DATE}
+      presaleDate={PRESALE_DATE}
     >
       <html
         lang="en"

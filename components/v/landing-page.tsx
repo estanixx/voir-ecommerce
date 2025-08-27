@@ -15,7 +15,7 @@ const Passcode = dynamic(
 );
 
 export default function LandingPage() {
-  const {passcode, presale, passcodeIsCorrect, setPasscode} = usePasscode();
+  const {passcode, presale, passcodeIsCorrect, setPasscode, saleDate} = usePasscode();
   
   return (
     <>
@@ -33,11 +33,11 @@ export default function LandingPage() {
           Temporarily Close
         </h1>
         <div className="mt-8">
-          <CountDown />
+          <CountDown saleDate={saleDate}/>
         </div>
         {
           presale ?
-          <Passcode passcodeIsCorrect={passcodeIsCorrect} passcode={passcode} setPasscode={setPasscode} />
+          <Passcode passcodeIsCorrect={passcodeIsCorrect} passcode={passcode} setPasscode={setPasscode}/>
           :
           <NewsletterForm />
         }
