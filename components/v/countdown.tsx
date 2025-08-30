@@ -7,25 +7,25 @@ import { useEffect, useState } from "react";
 export const CountDown = ({ saleDate }: { saleDate?: Date }) => {
 
   const [remainingTime, setRemainingTime] = useState<string>("00:00:00:00");
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      if(!saleDate) return;
-      if (now.getTime() < saleDate.getTime()) {
-        const diff = getDateDifference(now, saleDate);
-        Object.keys(diff).forEach((k: string) => {
-          if (diff[k as keyof dateDifference]){
-            if (Number(diff[k as keyof dateDifference]) < 10) {
-              diff[k as keyof dateDifference] = "0" + diff[k as keyof dateDifference];
-            }
+  const updateRemainingTime = () => {
+    const now = new Date();
+          if(!saleDate) return;
+          if (now.getTime() < saleDate.getTime()) {
+            const diff = getDateDifference(now, saleDate);
+            Object.keys(diff).forEach((k: string) => {              
+              if (Number(diff[k as keyof dateDifference]) < 10) {
+                diff[k as keyof dateDifference] = "0" + diff[k as keyof dateDifference];
+              }
+            });
+            const { days, hours, minutes, seconds } = diff;
+            setRemainingTime(`${days}:${hours}:${minutes}:${seconds}`);
+          }else{
+            setRemainingTime("00:00:00:00");
           }
-        });
-        const { days, hours, minutes, seconds } = diff;
-        setRemainingTime(`${days}:${hours}:${minutes}:${seconds}`);
-      }else{
-        setRemainingTime("00:00:00:00");
-      }
-    }, 1000);
+  }
+  useEffect(() => {
+    updateRemainingTime();
+    const interval = setInterval(updateRemainingTime, 1000);
     return () => {
       clearInterval(interval);
     };

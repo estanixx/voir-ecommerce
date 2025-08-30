@@ -56,12 +56,17 @@ export function cn(...inputs: ClassValue[]) {
 }
 export type dateDifference = { days: number | string, hours:number | string, minutes:number | string, seconds:number | string }
 export function getDateDifference(date1: Date, date2: Date): dateDifference {
-  const diffMs = Math.abs(date1.getTime() - date2.getTime()); // Diferencia en milisegundos
-
-  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
-
-  return { days, hours, minutes, seconds };
+  try{
+    const diffMs = Math.abs(date1.getTime() - date2.getTime()); // Diferencia en milisegundos
+  
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+  
+    return { days, hours, minutes, seconds };
+  }catch(error){
+    console.log(error)
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  }
 }
