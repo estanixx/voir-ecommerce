@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   // Get the pathname of the request
   const path = request.nextUrl.pathname;
   // Define paths that are always accessible without any restrictions
-  const publicPaths = ['/v', '/api/', '_next', 'favicon.ico', '/resources', '/_next', '/404', '/500', '/og', '/opengraph', '/sitemap.xml', '/robots.txt'];
+  const publicPaths = ['/v', '/api/', '/_next', '/favicon.ico', '/resources', '/_next', '/404', '/500', '/og', '/opengraph', '/sitemap.xml', '/robots.txt'];
   
   // Skip middleware for public paths
   if (publicPaths.some(p => path.startsWith(p))) {
