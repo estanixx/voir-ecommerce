@@ -4,6 +4,7 @@ import { getCart, getMenu } from "@/lib/shopify";
 import { ReactNode } from "react";
 import * as fonts from "@/fonts";
 import Footer from "@/components/layout/footer/footer";
+import WhatsAppFloatingModal from "@/components/home/whatsapp-floating-modal";
 // import { RegisterSW } from '../components/register-sw';
 
 export default async function EcommerceLayout({
@@ -21,7 +22,6 @@ export default async function EcommerceLayout({
 
   const cart = getCart();
 
-
   return (
     <CartProvider cartPromise={cart}>
       {/* <BackgroundTransition /> */}
@@ -30,6 +30,7 @@ export default async function EcommerceLayout({
       <main className={`${fonts.complementary.className} relative w-full`}>
         {children}
       </main>
+      <WhatsAppFloatingModal />
       <Footer />
     </CartProvider>
   );

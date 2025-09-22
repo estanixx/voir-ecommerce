@@ -69,7 +69,7 @@ export const VoirVideoHeader = ({
         autoPlay
         loop
         muted
-        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] hidden md:block"
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] hidden md:block select-none"
       />
       {/* Imagen para pantallas pequeñas (visible hasta 768px) */}
       <div className="flex flex-col items-center justify-center md:hidden w-full h-full object-cover z-[-1]">

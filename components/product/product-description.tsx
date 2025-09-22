@@ -16,7 +16,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import RichTextRenderer from "../shared/rich-text-renderer";
+import clsx from "clsx";
+import { complementary } from "@/fonts";
 
 function InfoItem({
   icon: Icon,
@@ -39,8 +40,8 @@ function InfoItem({
         <DialogHeader>
           <DialogTitle>{text}</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4 mb-8 text-sm text-muted-foreground">
-          {info && <RichTextRenderer jsonString={info} />}
+        <div className={clsx("grid gap-4 py-4 mb-8 text-sm text-muted-foreground", complementary.className)}>
+          {info && <Prose html={info} />}
         </div>
       </DialogContent>
     </Dialog>
@@ -48,6 +49,7 @@ function InfoItem({
 }
 
 export function ProductDescription({ product }: { product: Product }) {
+  console.log(product)
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6  text-black">

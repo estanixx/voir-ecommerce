@@ -26,7 +26,7 @@ export async function generateMetadata({
   const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
 
   return {
-    title: product.seo.title || product.title,
+    title: `| ${product.seo.title || product.title}`,
     description: product.seo.description || product.description,
     alternates: { canonical: siteUrl },
     twitter: {

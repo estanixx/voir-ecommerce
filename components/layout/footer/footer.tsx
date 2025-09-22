@@ -7,10 +7,21 @@ import * as fonts from "@/fonts";
 import LogoIcon from "../../icons/logo";
 import { SocialMedia } from "./social-media"; // Assuming SocialMedia is in the same directory
 
-const { COMPANY_NAME, SITE_NAME, SOCIAL_MEDIA } = process.env;
-
+const {
+  COMPANY_NAME,
+  SITE_NAME,
+  WHATSAPP_CONTACT,
+  INSTAGRAM_CONTACT,
+  FACEBOOK_CONTACT,
+  TIKTOK_CONTACT,
+} = process.env;
+const socialMedia = {
+  whatsapp: WHATSAPP_CONTACT,
+  instagram: INSTAGRAM_CONTACT,
+  facebook: FACEBOOK_CONTACT,
+  tiktok: TIKTOK_CONTACT,
+};
 export default async function Footer() {
-  const socialMedia = JSON.parse(SOCIAL_MEDIA || "{}");
   const footerMenus = {
     Voir: await getMenu("frontend-footer-voir"),
     Políticas: await getMenu("frontend-footer-policy"),
@@ -42,7 +53,14 @@ export default async function Footer() {
           <div className="pt-2">
             {" "}
             {/* Add some space before social media icons */}
-            <SocialMedia socialMedia={socialMedia} />
+            <SocialMedia
+              socialMedia={{
+                whatsapp: socialMedia.whatsapp || "",
+                instagram: socialMedia.instagram || "",
+                facebook: socialMedia.facebook || "",
+                tiktok: socialMedia.tiktok || "",
+              }}
+            />
           </div>
         </div>
 

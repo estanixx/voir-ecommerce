@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${SITE.url}/shop/${paramsRes.collection}`;
 
   return {
-    title: collection?.seo?.title || collection?.title || "Colección",
-    description:
+    title: `| ${collection?.seo?.title || collection?.title || "Colección"}`,
+    description:  
       collection?.seo?.description ||
       collection?.description ||
       SITE.description,

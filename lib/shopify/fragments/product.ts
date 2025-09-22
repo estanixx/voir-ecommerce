@@ -13,13 +13,13 @@ const productFragment = /* GraphQL */ `
     video: metafield(namespace: "custom", key: "video") {
       value
     }
-    careInstructions: metafield(namespace: "custom", key: "cuidados") {
+    careInstructions: metafield(namespace: "custom", key: "careInstructions") {
       value
     }
-    materials: metafield(namespace: "custom", key: "materiales") {
+    materials: metafield(namespace: "custom", key: "materials") {
       value
     }
-    sizeGuide: metafield(namespace: "custom", key: "guia_de_tallas") {
+    sizeGuide: metafield(namespace: "custom", key: "sizeGuide") {
       value
     }
     # --- End of added metafields ---

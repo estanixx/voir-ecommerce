@@ -8,7 +8,7 @@ import { SITE } from "@/lib/seo";
 
 
 export const metadata: Metadata = {
-  title: `Oficcial Store – Premium Caps`,
+  title: `Official Store – Premium Caps`,
   description:
     "En VOIR, cuando el camino se despeja la luz aparece. Diseñamos gorras premium inspiradas en cada fase del día y en la filosofía One Way. Descubre nuestras ediciones limitadas y suscríbete para acceder a la preventa.",
   robots: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: `${SITE.url}`, // The canonical URL for Open Graph
     siteName: SITE.name,
-    title: `${SITE.name} Oficcial Store – Premium Caps`,
+    title: `${SITE.name} Official Store – Premium Caps`,
     description:
       "Gorras de alta calidad con ediciones limitadas inspiradas en la luz de la colección Illuminare. Descubre VOIR y suscríbete para ser el primero en conocer el lanzamiento.",
     type: "website",

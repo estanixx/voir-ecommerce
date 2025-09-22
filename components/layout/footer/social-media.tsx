@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaWhatsapp, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaWhatsapp, FaFacebook, FaInstagram, FaTiktok } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 // import { IconType } from 'react-icons';
 
@@ -8,7 +8,8 @@ const icons = {
   whatsapp: FaWhatsapp,
   facebook: FaFacebook,
   x: FaXTwitter,
-  instagram: FaInstagram
+  instagram: FaInstagram,
+  tiktok: FaTiktok,
 };
 
 // Create a type that represents the valid keys of the `icons` object.

@@ -1,4 +1,3 @@
-import { GeistSans } from "geist/font/sans";
 import { ReactNode } from "react";
 import "./globals.css";
 import clsx from "clsx";
@@ -9,6 +8,7 @@ import { Viewport } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import Head from "next/head";
 import { PRESALE_DATE, SALE_DATE } from "@/lib/constants";
+import { complementary } from "@/fonts";
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -109,7 +109,7 @@ export default async function RootLayout({
       <html
         lang="en"
         translate="no"
-        className={clsx(GeistSans.variable, "!p-0")}
+        className={clsx(complementary.className, "!p-0")}
       >
         <Head>
           <meta property="og:image" content="<generated>" />
