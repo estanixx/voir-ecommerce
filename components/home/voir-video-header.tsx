@@ -1,7 +1,5 @@
 "use client";
 
-import { logo } from "@/fonts";
-import LogoIcon from "../icons/logo";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -62,41 +60,43 @@ export const VoirVideoHeader = ({
       className="relative flex flex-col items-center justify-center w-full h-screen text-white select-none"
       ref={sectionRef}
     >
-      {/* --- Imágenes de Fondo Responsivas --- */}
-      {/* Imagen para pantallas grandes (visible a partir de 768px) */}
+      {/* --- Fondos Responsivos --- */}
+      {/* Video para pantallas grandes (visible a partir de 768px) */}
       <video
         src={backgroundVideo}
         autoPlay
         loop
         muted
-        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] hidden md:block select-none"
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] hidden md:block select-none pointer-events-none"
       />
-      {/* Imagen para pantallas pequeñas (visible hasta 768px) */}
-      <div className="flex flex-col items-center justify-center md:hidden w-full h-full object-cover z-[-1]">
-        <Image
-          src={backgroundImageSmall}
-          alt="Voir Banner"
-          fill
-          priority
-          sizes="100vw"
-          className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
-        />
+      
+      {/* Div transparente sobre el video para evitar selección (solo en md+) */}
+      <div className="absolute top-0 left-0 w-full h-full z-0 hidden md:block pointer-events-none select-none" />
 
-        {/* El contenido animado no cambia */}
-        <div className="relative z-10 flex flex-col items-center justify-center">
-          <h1
-            className={`${logo.className} text-[clamp(50px,20vw,200px)] flex [&>span]:opacity-0 xs:mb-[-80px] sm:mb-[-80px] md:mb-[-100px] lg:mb-[-100px] mb-[-30px] [&>span]:scale-x-150 gap-2 sm:gap-3 md:gap-5`}
-          >
-            <span data-letter>V</span>
-            <span data-letter>O</span>
-            <span data-letter>I</span>
-            <span data-letter>R</span>
-          </h1>
-          <figure id="logo-wrapper" className="w-0 overflow-hidden h-auto">
-            <LogoIcon className="size-[clamp(50px,15vw,160px)]" />
-          </figure>
-        </div>
-      </div>
+      {/* Imagen para pantallas pequeñas (visible hasta 768px) */}
+      <Image
+        src={backgroundImageSmall}
+        alt="Voir Banner"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] md:hidden"
+      />
+      {/* Contenido animado */}
+      {/* <div className="relative z-10 flex flex-col items-center justify-center">
+        <h1
+          className={`${logo.className} text-[clamp(50px,20vw,200px)] flex [&>span]:opacity-0 xs:mb-[-80px] sm:mb-[-80px] md:mb-[-100px] lg:mb-[-100px] mb-[-30px] [&>span]:scale-x-150 gap-2 sm:gap-3 md:gap-5`}
+        >
+          <span data-letter>V</span>
+          <span data-letter>O</span>
+          <span data-letter>I</span>
+          <span data-letter>R</span>
+        </h1>
+        <figure id="logo-wrapper" className="w-0 overflow-hidden h-auto">
+          <LogoIcon className="size-[clamp(50px,15vw,160px)]" />
+        </figure>
+      </div> */}
     </section>
+
   );
 };

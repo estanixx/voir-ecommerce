@@ -14,8 +14,8 @@ export async function generateMetadata({
 
   // Dynamically set the title and description if there is a search query
   const title = isSearchQuery
-    ? `| Oficial Store - "${searchValue}"`
-    : "| Oficial Store";
+    ? `| Official Store - "${searchValue}"`
+    : "| Official Store";
   const description =
     "Explora nuestra tienda online y descubre gorras premium, accesorios y ediciones limitadas. Compra con confianza y recibe tu pedido en cualquier ciudad de Colombia con envíos rápidos y seguros.";
 

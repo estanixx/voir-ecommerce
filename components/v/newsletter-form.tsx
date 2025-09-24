@@ -35,17 +35,25 @@ export default function NewsletterForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: values.email, name: values.name }),
+        body: JSON.stringify({ 
+          email: values.email, 
+          name: values.name 
+          // No birthDate for v page form
+        }),
       })
 
-      if (!res.ok) throw new Error('Error al enviar el formulario')
+      if (!res.ok) {
+        const errorData = await res.json()
+        const errorMessage = errorData.error || 'Error al procesar tu suscripción'
+        toast.error(errorMessage)
+        return
+      }
 
-      toast.success(`Ahora eres parte del camino, ${values.name}.`)
-
+      toast.success(`¡Ahora eres parte del camino, ${values.name}! 🌟`)
       form.reset()
     } catch (error) {
-      toast.error('Error al suscribirte. Por favor, intenta nuevamente.')
-      console.error(error)
+      console.error('Error submitting newsletter form:', error)
+      toast.error('Error de conexión. Por favor, verifica tu internet e intenta nuevamente.')
     }
   }
 

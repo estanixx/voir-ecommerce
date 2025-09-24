@@ -4,7 +4,7 @@ import { ImageComparisonSlider } from "./image-slider";
 import Link from "next/link";
 export const IlluminareSection = () => {
   return (
-    <section className="relative  h-auto">
+    <section className="relative h-auto">
       <ImageComparisonSlider
         hAbove="https://picsum.photos/seed/h_above/1600/900"
         hBellow="https://picsum.photos/seed/h_bellow/1600/900"
@@ -15,16 +15,16 @@ export const IlluminareSection = () => {
           NEW COLLECTION
         </h2>
         <h1
-          className={`${logo.className} my-[-60px] sm:my-[-80px] md:my-[-100px] text-[180px] sm:text-[200px] md:text-[220px] lg:text-[250px] drop-shadow-lg`}
+          className={`${logo.className} relative my-[-60px] sm:my-[-80px] md:my-[-100px] text-[180px] sm:text-[200px] md:text-[220px] lg:text-[250px] drop-shadow-lg z-[1]`}
         >
-          ILUMINARE
+          ILLUMINARE
         </h1>
         <Link
-          href={"/shop/iluminare"}
-          className="text-sm sm:text-md px-3 py-1.5 sm:px-4 sm:py-2 font-semibold mt-3 sm:mt-4 z-50 cursor-pointer"
+          href={"/shop/illuminare"}
+          className="relative text-sm sm:text-md px-3 py-1.5 sm:px-4 sm:py-2 font-semibold mt-3 sm:mt-4 z-[100] cursor-pointer"
           passHref
         >
-          <Button variant="secondary" className={`cursor-pointer`}>
+          <Button variant="secondary" className={`cursor-pointer z-[100]`}>
             Ver drop
           </Button>
         </Link>

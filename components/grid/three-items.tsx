@@ -12,6 +12,12 @@ function ThreeItemGridItem({
   size: 'full' | 'half';
   priority?: boolean;
 }) {
+  // Find the variant with the highest compareAtPrice for discount display
+  const variantWithHighestCompareAt = item.variants.find(variant => 
+    variant.compareAtPrice && 
+    parseFloat(variant.compareAtPrice.amount) > parseFloat(variant.price.amount)
+  );
+
   return (
     <div
       className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
@@ -33,7 +39,8 @@ function ThreeItemGridItem({
             position: size === 'full' ? 'center' : 'bottom',
             title: item.title as string,
             amount: item.priceRange.maxVariantPrice.amount,
-            currencyCode: item.priceRange.maxVariantPrice.currencyCode
+            currencyCode: item.priceRange.maxVariantPrice.currencyCode,
+            compareAtAmount: variantWithHighestCompareAt?.compareAtPrice?.amount
           }}
         />
       </Link>

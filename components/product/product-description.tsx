@@ -18,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { complementary } from "@/fonts";
+import { ENVIOS } from "@/lib/constants";
 
 function InfoItem({
   icon: Icon,
@@ -31,7 +32,7 @@ function InfoItem({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" className="text-white">
+        <Button variant="default" className="text-white cursor-pointer">
           <Icon className="h-4 w-4 mr-2" />
           <span className="text-sm">{text}</span>
         </Button>
@@ -49,7 +50,13 @@ function InfoItem({
 }
 
 export function ProductDescription({ product }: { product: Product }) {
-  console.log(product)
+  
+  // Find the variant with the highest compareAtPrice for discount display
+  const variantWithHighestCompareAt = product.variants.find(variant => 
+    variant.compareAtPrice && 
+    parseFloat(variant.compareAtPrice.amount) > parseFloat(variant.price.amount)
+  );
+
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6  text-black">
@@ -62,6 +69,8 @@ export function ProductDescription({ product }: { product: Product }) {
           <Price
             amount={product.priceRange.maxVariantPrice.amount}
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+            compareAtAmount={variantWithHighestCompareAt?.compareAtPrice?.amount}
+            showDiscount={true}
           />
         </div>
       </div>
@@ -80,7 +89,7 @@ export function ProductDescription({ product }: { product: Product }) {
         {product.materials && (
           <InfoItem info={product.materials} icon={Fabric} text="Materiales" />
         )}
-        <InfoItem icon={Package} text="Envío y devoluciones" />
+        <InfoItem info={ENVIOS} icon={Package} text="Envío y devoluciones" />
         {product.careInstructions && (
           <InfoItem
             info={product.careInstructions}

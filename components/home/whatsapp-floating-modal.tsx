@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { X, MessageCircle, Send } from 'lucide-react';
 import LogoIcon from '@/components/icons/logo';
+import { FaWhatsapp } from 'react-icons/fa';
 
 interface WhatsAppFloatingModalProps {
   whatsapp?: string;
   message?: string;
 }
 export default function WhatsAppFloatingModal({ 
-  whatsapp, 
+  whatsapp = 'https://wa.me', 
   message = "¡Hola! Estoy interesado en sus productos. ¿Pueden ayudarme?" 
 }: WhatsAppFloatingModalProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,19 +34,19 @@ export default function WhatsAppFloatingModal({
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed bottom-6 left-6 z-50">
+      <div className="fixed bottom-6 left-6 md:left-auto md:right-6 z-50">
         <button
           onClick={handleToggleModal}
           className="bg-white hover:bg-gray-100 text-black rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-gray-300"
           aria-label="Abrir chat de WhatsApp"
         >
-          <MessageCircle className="w-6 h-6" />
+          <FaWhatsapp className="w-6 h-6" />
         </button>
       </div>
 
       {/* Chat Modal */}
       {isOpen && (
-        <div className="fixed bottom-24 left-6 z-50 w-80 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden">
+        <div className="fixed bottom-24 left-6 md:left-auto md:right-15 z-50 w-80 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden">
           {/* Header */}
           <div className="bg-black text-white p-4 flex items-center justify-between">
             <div className="flex items-center space-x-3">

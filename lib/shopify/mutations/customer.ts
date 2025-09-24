@@ -3,6 +3,7 @@ export const customerCreateMutation = `
     customerCreate(input: $input) {
       customer {
         id
+        firstName
         email
         acceptsMarketing
       }

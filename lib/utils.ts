@@ -66,7 +66,7 @@ export function getDateDifference(date1: Date, date2: Date): dateDifference {
   
     return { days, hours, minutes, seconds };
   }catch(error){
-    console.log(error)
+    console.log(error);
     return { days: 0, hours: 0, minutes: 0, seconds: 0 }
   }
 }

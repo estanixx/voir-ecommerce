@@ -22,30 +22,39 @@ export async function Carousel({
   return (
     <div className={`w-full ${products.length === cols ? 'overflow-x-clip' : 'overflow-x-auto'} pb-6 pt-1 ${className}`}>
       <ul className="flex animate-carousel gap-4">
-        {carouselProducts.map((product, i) => (
-          <li
-            key={`${product.handle}${i}`}
-            className="relative aspect-square h-[30vh] max-h-[275px] flex-none"
-            style={{ width: `${100/(cols + 0.1)}%` }} // Ajusta el ancho en función de `cols`
-          >
-            <Link
-              href={`/product/${product.handle}`}
-              className="relative h-full w-full"
+        {carouselProducts.map((product, i) => {
+          // Find the variant with the highest compareAtPrice for discount display
+          const variantWithHighestCompareAt = product.variants.find(variant => 
+            variant.compareAtPrice && 
+            parseFloat(variant.compareAtPrice.amount) > parseFloat(variant.price.amount)
+          );
+
+          return (
+            <li
+              key={`${product.handle}${i}`}
+              className="relative aspect-square h-[30vh] max-h-[275px] flex-none"
+              style={{ width: `${100/(cols + 0.1)}%` }} // Ajusta el ancho en función de `cols`
             >
-              <GridTileImage
-                alt={product.title}
-                label={{
-                  title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode,
-                }}
-                src={product.featuredImage?.url}
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-              />
-            </Link>
-          </li>
-        ))}
+              <Link
+                href={`/product/${product.handle}`}
+                className="relative h-full w-full"
+              >
+                <GridTileImage
+                  alt={product.title}
+                  label={{
+                    title: product.title,
+                    amount: product.priceRange.maxVariantPrice.amount,
+                    currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+                    compareAtAmount: variantWithHighestCompareAt?.compareAtPrice?.amount
+                  }}
+                  src={product.featuredImage?.url}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                />
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

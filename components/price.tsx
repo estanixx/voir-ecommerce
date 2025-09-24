@@ -4,21 +4,40 @@ const Price = ({
   amount,
   className,
   currencyCode = 'USD',
-  currencyCodeClassName
+  currencyCodeClassName,
+  compareAtAmount,
+  showDiscount = false
 }: {
   amount: string;
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
-} & React.ComponentProps<'p'>) => (
-  <span suppressHydrationWarning={true} className={className}>
-    {`${new Intl.NumberFormat(undefined, {
-      style: 'currency',
-      currency: currencyCode,
-      currencyDisplay: 'narrowSymbol'
-    }).format(parseFloat(amount))}`}
-    <h2 className={clsx('ml-1 inline', currencyCodeClassName)}>{`${currencyCode}`}</h2>
-  </span>
-);
+  compareAtAmount?: string;
+  showDiscount?: boolean;
+} & React.ComponentProps<'p'>) => {
+  const hasDiscount = compareAtAmount && parseFloat(compareAtAmount) > parseFloat(amount);
+  
+  return (
+    <p suppressHydrationWarning={true} className={className}>
+      {hasDiscount && showDiscount && (
+        <span className="line-through text-gray-500 mr-2">
+          {`${new Intl.NumberFormat(undefined, {
+            style: 'currency',
+            currency: currencyCode,
+            currencyDisplay: 'narrowSymbol'
+          }).format(parseFloat(compareAtAmount))}`}
+        </span>
+      )}
+      <span className={hasDiscount && showDiscount ? 'text-red-600 font-semibold' : ''}>
+        {`${new Intl.NumberFormat(undefined, {
+          style: 'currency',
+          currency: currencyCode,
+          currencyDisplay: 'narrowSymbol'
+        }).format(parseFloat(amount))}`}
+      </span>
+      <span className={clsx('ml-1 inline', currencyCodeClassName)}>{currencyCode}</span>
+    </p>
+  );
+};
 
 export default Price;

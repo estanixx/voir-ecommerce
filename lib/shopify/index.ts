@@ -50,6 +50,7 @@ import {
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
   ShopifyCustomerCreateOperation,
+  ShopifyMetafieldsSetOperation,
   ShopifyMenuOperation,
   // ShopifyMetaobject,
   ShopifyMetaobjectOperation,
@@ -64,6 +65,7 @@ import {
 } from "./types";
 import { getMetaObjectQuery } from "./queries/metaobject";
 import { customerCreateMutation } from "./mutations/customer";
+import { metafieldsSetMutation } from "./mutations/metafields";
 import { SITE } from "../seo";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -72,9 +74,16 @@ const domain = process.env.SHOPIFY_STORE_DOMAIN
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
+// Admin API configuration
+const adminEndpoint = `${domain}/admin/api/2024-01/graphql.json`;
+const adminKey = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN!;
+
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
   : never;
+
+
+
 
 export async function shopifyFetch<T>({
   headers,
@@ -123,6 +132,53 @@ export async function shopifyFetch<T>({
       error: e,
       query,
     };
+  }
+}
+
+export async function shopifyAdminFetch<T>({
+  headers,
+  query,
+  variables,
+}: {
+  headers?: HeadersInit;
+  query: string;
+  variables?: ExtractVariables<T>;
+}): Promise<{ status: number; body: T } | never> {
+  try {
+    const result = await fetch(adminEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Access-Token": adminKey,
+        ...headers,
+      },
+      body: JSON.stringify({
+        ...(query && { query }),
+        ...(variables && { variables }),
+      }),
+    });
+
+    const body = await result.json();
+
+    if (body.errors) {
+      throw body.errors[0];
+    }
+
+    return {
+      status: result.status,
+      body,
+    };
+  } catch (e) {
+    if (isShopifyError(e)) {
+      throw {
+        cause: e.cause?.toString() || "unknown",
+        status: e.status || 500,
+        message: e.message,
+        query,
+      };
+    }
+
+    throw e;
   }
 }
 
@@ -543,7 +599,8 @@ export async function createNewsletterSubscriber(
   email: string,
   firstName?: string,
   lastName?: string,
-  phone?: string
+  phone?: string,
+  birthDate?: string
 ): Promise<{
   customer?: {
     id: string;
@@ -581,8 +638,32 @@ export async function createNewsletterSubscriber(
       };
     }
 
+    const customer = res.body.data.customerCreate.customer;
+    // Add birth_date as metafield if provided and customer was created successfully
+    if (birthDate && customer?.id) {
+      const metafieldsRes = await shopifyAdminFetch<ShopifyMetafieldsSetOperation>({
+        query: metafieldsSetMutation,
+        variables: {
+          metafields: [
+            {
+              ownerId: customer.id,
+              namespace: "custom",
+              key: "birth_date",
+              value: birthDate,
+              type: "date"
+            }
+          ]
+        },
+      });
+
+      if (metafieldsRes.body.data.metafieldsSet.userErrors?.length) {
+        // Log metafield errors but don't fail the customer creation
+        console.warn('Metafield creation failed:', metafieldsRes.body.data.metafieldsSet.userErrors);
+      }
+    }
+
     return {
-      customer: res.body.data.customerCreate.customer,
+      customer,
     };
   } catch (e) {
     if (isShopifyError(e)) {

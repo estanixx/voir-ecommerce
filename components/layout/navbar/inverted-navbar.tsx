@@ -10,12 +10,10 @@ import { Menu } from "@/lib/shopify/types";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense, useRef, useState } from "react";
-// import { DropDownMenu } from "./dropdown-menu";
 import MobileMenu from "./mobile-menu";
 
-function Navbar$({
+function InvertedNavbar$({
   menu = [],
-  // shopMenus = {} ,
 }: {
   menu: Menu[];
   shopMenus: { [key: string]: Menu[] };
@@ -24,40 +22,50 @@ function Navbar$({
   const navbarRef = useRef<HTMLElement>(null);
   const [isShopMenuHovered, setIsShopMenuHovered] = useState(false);
 
-  // Usamos una sola línea de tiempo para sincronizar todas las animaciones de scroll
+  // Timeline for scroll animations
   const tl = useRef<gsap.core.Timeline>(null);
 
-  const activeBackgroundColor = "rgba(255, 255, 255, 1)";
-  const activeTextColor = "#000000";
-  const inactiveTextColor = "#ffffff";
+  // Inverted colors - starts white bg/black text, transitions to black bg/white text
+  const activeBackgroundColor = "rgba(0, 0, 0, 1)";
+  const activeTextColor = "#ffffff";
+  const inactiveBackgroundColor = "rgba(255, 255, 255, 1)";
+  const inactiveTextColor = "#000000";
+
+  const handleShopMenuMouseEnter = () => {
+    setIsShopMenuHovered(true);
+  };
+
+  const handleShopMenuMouseLeave = () => {
+    setIsShopMenuHovered(false);
+  };
 
   useGSAP(
     () => {
       const navbarElement = navbarRef.current;
       if (!navbarElement) return;
 
-      // --- Timeline para el ScrollTrigger ---
+      // --- Timeline for ScrollTrigger ---
       tl.current = gsap
         .timeline({
           scrollTrigger: {
             trigger: document.body,
             start: "top top",
-            end: "+=200", // La animación se completa en 200px de scroll
-            scrub: 0.5, // Suaviza la animación
+            end: "+=200", // Animation completes in 200px of scroll
+            scrub: 0.5, // Smooth animation
           },
         })
-        .to(navbarElement, { backgroundColor: activeBackgroundColor, overwrite: "auto", }, 0)
+        .to(navbarElement, { backgroundColor: activeBackgroundColor, overwrite: "auto" }, 0)
         .to(
           navbarElement.querySelectorAll("a, button, svg"),
           { color: activeTextColor, overwrite: "auto", },
           0
         )
-        // 1. El monograma desaparece
+        // 1. The monogram disappears
         .to(".monogram-container", { opacity: 0 }, 0)
-        // 2. Las letras de "VOIR" aparecen en su lugar, con un efecto escalonado
+        // 2. The "VOIR" letters appear in its place, with a staggered effect
         .to(".nav-letter", { opacity: 1, y: 0, stagger: 0.2 }, 0);
 
-      // --- Lógica para el Hover ---
+      // --- Hover Logic ---
       const handleNavbarMouseEnter = () => {
         gsap.to(navbarElement, {
           backgroundColor: activeBackgroundColor,
@@ -69,14 +77,14 @@ function Navbar$({
           duration: 0.2,
           overwrite: "auto",
         });
-        // Solo animar el monograma si estamos en la parte superior de la página
+        // Only animate the monogram if we're at the top of the page
         if (tl.current?.scrollTrigger?.progress === 0) {
-          gsap.to(".white-monogram-nav", {
+          gsap.to(".black-monogram-nav", {
             opacity: 0,
             duration: 0.2,
             overwrite: "auto",
           });
-          gsap.to(".black-monogram-nav", {
+          gsap.to(".white-monogram-nav", {
             opacity: 1,
             duration: 0.2,
             overwrite: "auto",
@@ -85,10 +93,10 @@ function Navbar$({
       };
 
       const handleNavbarMouseLeave = () => {
-        // Solo revertir al estado transparente si estamos en la parte superior
+        // Only revert to initial state if we're at the top
         if (tl.current?.scrollTrigger?.progress === 0) {
           gsap.to(navbarElement, {
-            backgroundColor: "transparent",
+            backgroundColor: inactiveBackgroundColor,
             duration: 0.2,
             overwrite: "auto",
           });
@@ -97,12 +105,12 @@ function Navbar$({
             duration: 0.2,
             overwrite: "auto",
           });
-          gsap.to(".white-monogram-nav", {
+          gsap.to(".black-monogram-nav", {
             opacity: 1,
             duration: 0.2,
             overwrite: "auto",
           });
-          gsap.to(".black-monogram-nav", {
+          gsap.to(".white-monogram-nav", {
             opacity: 0,
             duration: 0.2,
             overwrite: "auto",
@@ -121,30 +129,10 @@ function Navbar$({
     { scope: navbarRef }
   );
 
-  // (La lógica del menú desplegable no necesita cambios)
-  const handleShopMenuMouseEnter = () => {
-    setIsShopMenuHovered(true);
-    gsap.to(".dropdown-menu", {
-      opacity: 1,
-      height: "auto",
-      duration: 0.3,
-      display: "block",
-    });
-  };
-  const handleShopMenuMouseLeave = () => {
-    setIsShopMenuHovered(false);
-    gsap.to(".dropdown-menu", {
-      opacity: 0,
-      height: 0,
-      duration: 0.3,
-      display: "none",
-    });
-  };
-
   return (
     <nav
       ref={navbarRef}
-      className={`flex items-center px-4 py-2 lg:px-6 fixed top-0 left-0 w-full bg-transparent z-[99] text-white`}
+      className={`flex items-center px-4 py-2 lg:px-6 fixed top-0 left-0 w-full bg-transparent z-[99] text-black`}
       onMouseLeave={isShopMenuHovered ? handleShopMenuMouseLeave : undefined}
     >
       <div className="block flex-none md:hidden">
@@ -167,7 +155,7 @@ function Navbar$({
                 <Link
                   href={item.path}
                   prefetch={true}
-                  className="underline-offset-4 hover:underline font-medium"
+                  className="underline-offset-4 hover:underline font-medium text-black hover:text-gray-600 transition-colors"
                 >
                   {item.title}
                 </Link>
@@ -176,20 +164,20 @@ function Navbar$({
           </ul>
         </div>
 
-        {/* --- CONTENEDOR CENTRAL MODIFICADO --- */}
+        {/* Central container with logo */}
         <div className="flex w-full md:w-1/3 justify-center">
           <Link
             href="/"
             prefetch={true}
             className="relative flex items-center justify-center h-12 w-12"
           >
-            {/* El monograma original, que se ocultará con el scroll */}
+            {/* The original monogram, which will be hidden on scroll */}
             <div className="monogram-container absolute inset-0">
-              <WhiteMonogram className="white-monogram-nav absolute inset-0 size-full" />
-              <BlackMonogram className="black-monogram-nav absolute inset-0 size-full opacity-0" />
+              <WhiteMonogram className="white-monogram-nav absolute inset-0 size-full opacity-0" />
+              <BlackMonogram className="black-monogram-nav absolute inset-0 size-full" />
             </div>
 
-            {/* El texto "VOIR" que aparecerá con el scroll */}
+            {/* The "VOIR" text that will appear on scroll */}
             <h2
               className={`${fonts.logo.className} text-5xl flex items-center justify-center gap-1`}
             >
@@ -205,19 +193,16 @@ function Navbar$({
           </Link>
         </div>
 
-        <div className="flex items-center justify-end md:w-1/3 gap-4">
+        <div className="flex items-center justify-end md:w-1/3 gap-4 !text-black">
           <Suspense fallback={null}>
             <CartModal />
           </Suspense>
         </div>
       </div>
-      {/* <div className="dropdown-menu absolute top-full left-0 w-full bg-white" style={{ opacity: 0, height: 0, display: 'none' }}>
-        <DropDownMenu shopMenus={shopMenus} />
-      </div> */}
     </nav>
   );
 }
 
-export const Navbar = dynamic(() => Promise.resolve(Navbar$), {
+export const InvertedNavbar = dynamic(() => Promise.resolve(InvertedNavbar$), {
   ssr: false,
 });

@@ -73,12 +73,6 @@ export default async function CategoryPage(props: {
           <p className="py-3 text-lg">{`No se encontraron productos de esta colección`}</p>
         ) : (
           <>
-            <div className="my-6">
-              <h1 className="text-3xl font-bold mb-4 text-white">
-                {collection?.title}
-              </h1>
-              <p className="text-white">{collection?.description}</p>
-            </div>
             <ProductList products={products} />
           </>
         )}

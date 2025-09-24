@@ -96,6 +96,7 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  compareAtPrice?: Money;
 };
 
 export type SEO = {
@@ -323,6 +324,7 @@ export interface ShopifyCustomerCreateOperation {
     customerCreate: {
       customer?: {
         id: string;
+        firstName?: string;
         email: string;
         acceptsMarketing: boolean;
       };
@@ -334,5 +336,31 @@ export interface ShopifyCustomerCreateOperation {
   };
   variables: {
     input: CustomerCreateInput;
+  };
+}
+
+export interface ShopifyMetafieldsSetOperation {
+  data: {
+    metafieldsSet: {
+      metafields?: Array<{
+        id: string;
+        namespace: string;
+        key: string;
+        value: string;
+      }>;
+      userErrors: Array<{
+        field: string[];
+        message: string;
+      }>;
+    };
+  };
+  variables: {
+    metafields: Array<{
+      ownerId: string;
+      namespace: string;
+      key: string;
+      value: string;
+      type: string;
+    }>;
   };
 }

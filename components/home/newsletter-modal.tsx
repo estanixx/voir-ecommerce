@@ -26,6 +26,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { graffiti } from "@/fonts"; // Assuming you have this font setup
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Correo electrónico inválido" }),
@@ -45,8 +46,33 @@ const NewsletterModal = () => {
     },
   });
 
-  const onSubmit = async (/*values: {[key:string]: string}*/) => {
-    // Your form submission logic here
+  const onSubmit = async (values: {[key:string]: string}) => {
+    try {
+      const res = await fetch('/api/newsletter-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email: values.email, 
+          name: values.name,
+          birthDate: values.birthday 
+        }),
+      })
+
+      if (!res.ok) {
+        const errorData = await res.json()
+        const errorMessage = errorData.error || 'Error al procesar tu suscripción'
+        toast.error(errorMessage)
+        return
+      }
+
+      toast.success(`¡Gracias ${values.name}! Te has suscrito exitosamente al newsletter. 🎉`)
+      form.reset()
+    } catch (error) {
+      console.error('Error submitting newsletter form:', error)
+      toast.error('Error de conexión. Por favor, verifica tu internet e intenta nuevamente.')
+    }
   };
 
   return (

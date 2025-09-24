@@ -1,10 +1,9 @@
 import { CartProvider } from "@/components/cart/cart-context";
-import { Navbar } from "@/components/layout/navbar";
+import { InvertedNavbar } from "@/components/layout/navbar/inverted-navbar";
 import { getCart, getMenu } from "@/lib/shopify";
 import { ReactNode } from "react";
 import * as fonts from "@/fonts";
-import Footer from "@/components/layout/footer/footer";
-import WhatsAppFloatingModal from "@/components/home/whatsapp-floating-modal";
+import InvertedFooter from "@/components/layout/footer/inverted-footer";
 // import { RegisterSW } from '../components/register-sw';
 
 export default async function EcommerceLayout({
@@ -25,13 +24,12 @@ export default async function EcommerceLayout({
   return (
     <CartProvider cartPromise={cart}>
       {/* <BackgroundTransition /> */}
-      <Navbar menu={headerMenu} shopMenus={navShopMenus} />
+      <InvertedNavbar menu={headerMenu} shopMenus={navShopMenus} />
 
-      <main className={`${fonts.complementary.className} relative w-full`}>
+      <main className={`${fonts.complementary.className} relative w-full bg-white text-black min-h-screen`}>
         {children}
       </main>
-      <WhatsAppFloatingModal whatsapp={process.env.WHATSAPP_CONTACT} />
-      <Footer />
+      <InvertedFooter />
     </CartProvider>
   );
 }
