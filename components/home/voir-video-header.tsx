@@ -67,6 +67,7 @@ export const VoirVideoHeader = ({
         autoPlay
         loop
         muted
+        playsInline
         className="absolute top-0 left-0 w-full h-full object-cover z-[-1] hidden md:block select-none pointer-events-none"
       />
       
