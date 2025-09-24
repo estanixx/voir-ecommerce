@@ -18,7 +18,7 @@ const Price = ({
   const hasDiscount = compareAtAmount && parseFloat(compareAtAmount) > parseFloat(amount);
   
   return (
-    <p suppressHydrationWarning={true} className={clsx(className, 'text-white')}>
+    <p suppressHydrationWarning={true} className={clsx(className)}>
       {hasDiscount && showDiscount && (
         <span className="line-through text-red-600 mr-2">
           {`${new Intl.NumberFormat(undefined, {
@@ -28,7 +28,7 @@ const Price = ({
           }).format(parseFloat(compareAtAmount))}`}
         </span>
       )}
-      <span className={hasDiscount && showDiscount ? ' font-semibold text-white' : ''}>
+      <span className={hasDiscount && showDiscount ? ' font-semibold' : ''}>
         {`${new Intl.NumberFormat(undefined, {
           style: 'currency',
           currency: currencyCode,
