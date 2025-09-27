@@ -33,8 +33,8 @@ export default async function HomePage() {
     <>
       <ModalTrigger />
       <VoirVideoHeader
-        backgroundVideo="/resources/illuminare.mp4"
-        backgroundImageSmall="https://picsum.photos/seed/mobile/768/1024"
+        backgroundVideo="https://cdn.shopify.com/videos/c/o/v/89e6330dd07e4b8aa32d1e0f6023c6bd.mov"
+        backgroundImageSmall="https://cdn.shopify.com/s/files/1/0780/9122/3275/files/IMG_7109.webp?v=1758670160"
       />
       <IlluminareSection />
       <NewsletterForm />

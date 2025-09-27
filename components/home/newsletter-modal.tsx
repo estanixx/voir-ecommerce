@@ -145,7 +145,7 @@ const NewsletterModal = () => {
       <div className="relative hidden md:block w-1/2">
         <Image
           priority={true}
-          src="https://picsum.photos/seed/pvp/1080/1920"
+          src="https://cdn.shopify.com/s/files/1/0780/9122/3275/files/IMG_7059.webp?v=1758670161"
           width={1080}
           height={1920}
           alt="Newsletter Promotion"

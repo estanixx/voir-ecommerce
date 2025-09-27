@@ -81,7 +81,7 @@ export default async function ProductPage({
         }}
       />
       <div className="bg-black text-white">
-        <div className="w-full z-10 mt-20 bg-black">
+        <div className="w-full z-10 mt-5 bg-black">
           <Gallery
             className="w-full"
             images={product.images.slice(0, 5).map((image: ShopifyImage) => ({

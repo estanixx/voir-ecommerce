@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 // Initial slider position for horizontal mode (center)
-const INITIAL_HORIZONTAL_SLIDER_PERCENTAGE = 33;
+const INITIAL_HORIZONTAL_SLIDER_PERCENTAGE = 50;
 
 interface ImageComparisonSliderProps {
   vImage: string; // Single image for small screens

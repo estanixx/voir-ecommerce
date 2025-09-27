@@ -6,9 +6,9 @@ export const IlluminareSection = () => {
   return (
     <section className="relative h-auto">
       <ImageComparisonSlider
-        hAbove="https://picsum.photos/seed/h_above/1600/900"
-        hBellow="https://picsum.photos/seed/h_bellow/1600/900"
-        vImage="https://picsum.photos/seed/v_above/900/1600"
+        hAbove="https://cdn.shopify.com/s/files/1/0780/9122/3275/files/home-slider-left.jpg?v=1758944436"
+        hBellow="https://cdn.shopify.com/s/files/1/0780/9122/3275/files/home-slider-right.jpg?v=1758944441"
+        vImage="https://cdn.shopify.com/s/files/1/0780/9122/3275/files/IMG_7081.webp?v=1758670159"
       >
         {/* Content for the overlay */}
         <h2 className="text-xl mb-7 sm:text-2xl md:text-3xl font-bold tracking-tight drop-shadow-md">
