@@ -2,17 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import Image from "next/image";
 
 interface VoirHeaderProps {
   backgroundVideo: string;
-  backgroundImageSmall: string;
+  backgroundVideoSmall: string;
 }
 
 // Nota: La prop 'breakpoint' ya no es necesaria, ya que se controla con las clases de Tailwind (md:).
 export const VoirVideoHeader = ({
   backgroundVideo,
-  backgroundImageSmall,
+  backgroundVideoSmall,
 }: VoirHeaderProps) => {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -74,14 +73,14 @@ export const VoirVideoHeader = ({
       {/* Div transparente sobre el video para evitar selección (solo en md+) */}
       <div className="absolute top-0 left-0 w-full h-full z-0 hidden md:block pointer-events-none select-none" />
 
-      {/* Imagen para pantallas pequeñas (visible hasta 768px) */}
-      <Image
-        src={backgroundImageSmall}
-        alt="Voir Banner"
-        fill
-        priority
-        sizes="100vw"
-        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] md:hidden"
+      {/* Video para pantallas pequeñas (visible hasta 768px) */}
+      <video
+        src={backgroundVideoSmall}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover z-[-1] md:hidden select-none pointer-events-none"
       />
       {/* Contenido animado */}
       {/* <div className="relative z-10 flex flex-col items-center justify-center">
