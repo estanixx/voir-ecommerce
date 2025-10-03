@@ -3,11 +3,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Fragment, Suspense, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Menu as MenuType } from "@/lib/shopify/types"; // Renamed to avoid conflict with component name
-import Search, { SearchSkeleton } from "./search";
 
 export default function MobileMenu({ menu }: { menu: MenuType[] }) {
   const pathname = usePathname();
@@ -89,11 +88,11 @@ export default function MobileMenu({ menu }: { menu: MenuType[] }) {
 
               {/* Content Body */}
               <div className="flex-grow p-4 space-y-6">
-                <div className="w-full">
+                {/* <div className="w-full">
                   <Suspense fallback={<SearchSkeleton />}>
                     <Search />
                   </Suspense>
-                </div>
+                </div> */}
 
                 {menu.length ? (
                   <nav>

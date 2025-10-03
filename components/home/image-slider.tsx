@@ -110,7 +110,7 @@ export const ImageComparisonSlider = ({
     // The main container has the ref and a default cursor for small screens
     <div
       ref={containerRef}
-      className="relative w-full h-[70vh] sm:h-[80vh] md:h-[90vh] overflow-hidden select-none cursor-default md:cursor-ew-resize"
+      className="relative w-full h-screen overflow-hidden select-none cursor-default md:cursor-ew-resize"
     >
       {/* --- SMALL SCREEN VIEW (md:hidden) --- */}
       {/* This block is only visible on screens smaller than the breakpoint */}
@@ -120,7 +120,7 @@ export const ImageComparisonSlider = ({
           alt="Display Image"
           fill={true}
           priority
-          className="absolute inset-0 object-cover z-10"
+          className="absolute inset-0 object-cover z-10 grayscale"
         />
         {/* Children overlay for mobile */}
         {children && (

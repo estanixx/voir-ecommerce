@@ -76,7 +76,7 @@ const NewsletterModal = () => {
   };
 
   return (
-    <DialogContent className="max-w-[900px] flex overflow-hidden p-0 mt-5">
+    <DialogContent className="max-w-[900px] flex overflow-hidden p-0 mt-5 z-[100]">
       <div className="p-6 flex-1">
         <DialogHeader>
           <DialogTitle

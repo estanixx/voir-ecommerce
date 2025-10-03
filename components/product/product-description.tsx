@@ -37,7 +37,7 @@ function InfoItem({
           <span className="text-sm">{text}</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] z-[100]">
         <DialogHeader>
           <DialogTitle>{text}</DialogTitle>
         </DialogHeader>

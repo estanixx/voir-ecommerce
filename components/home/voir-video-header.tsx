@@ -58,7 +58,7 @@ export const VoirVideoHeader = ({
 
   return (
     <section
-      className="relative flex flex-col items-center justify-center w-full h-screen text-white select-none"
+      className="relative flex flex-col items-center justify-center w-full h-screen text-white select-none grayscale"
       ref={sectionRef}
     >
       {/* Placeholder image - shown while videos are loading */}
