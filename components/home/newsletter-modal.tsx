@@ -169,7 +169,7 @@ const ModalTrigger = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className="fixed top-1/2 right-0 z-[99] font-bold bg-white text-black hover:bg-white px-8 py-6 rounded-none modal-btn">
-          15% OFF
+          10% OFF
         </Button>
       </DialogTrigger>
       <NewsletterModal />

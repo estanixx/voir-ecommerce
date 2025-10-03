@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 interface VoirHeaderProps {
@@ -14,6 +14,8 @@ export const VoirVideoHeader = ({
   backgroundVideoSmall,
 }: VoirHeaderProps) => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isVideoSmallLoaded, setIsVideoSmallLoaded] = useState(false);
 
   // El useEffect para las animaciones GSAP no necesita cambios,
   // ya que no depende del tamaño de la pantalla.
@@ -59,6 +61,19 @@ export const VoirVideoHeader = ({
       className="relative flex flex-col items-center justify-center w-full h-screen text-white select-none"
       ref={sectionRef}
     >
+      {/* Placeholder image - shown while videos are loading */}
+      <div 
+        className={`absolute top-0 left-0 w-full h-full z-[-2] transition-opacity duration-500 ${
+          (isVideoLoaded && isVideoSmallLoaded) ? 'opacity-0' : 'opacity-100'
+        }`}
+        style={{
+          backgroundImage: 'url(/resources/voir-sunset-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
       {/* --- Fondos Responsivos --- */}
       {/* Video para pantallas grandes (visible a partir de 768px) */}
       <video
@@ -67,11 +82,14 @@ export const VoirVideoHeader = ({
         loop
         muted
         playsInline
+        onLoadedData={() => setIsVideoLoaded(true)}
+        onError={() => setIsVideoLoaded(true)} // Hide placeholder even on error
         className="absolute top-0 left-0 w-full h-full object-cover z-[-1] hidden md:block select-none pointer-events-none"
       />
       
       {/* Div transparente sobre el video para evitar selección (solo en md+) */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 hidden md:block pointer-events-none select-none" />
+      <div className="absolute top-0 left-0 w-full h-full
+        z-0 hidden md:block pointer-events-none select-none" />
 
       {/* Video para pantallas pequeñas (visible hasta 768px) */}
       <video
@@ -80,6 +98,8 @@ export const VoirVideoHeader = ({
         loop
         muted
         playsInline
+        onLoadedData={() => setIsVideoSmallLoaded(true)}
+        onError={() => setIsVideoSmallLoaded(true)} // Hide placeholder even on error
         className="absolute top-0 left-0 w-full h-full object-cover z-[-1] md:hidden select-none pointer-events-none"
       />
       {/* Contenido animado */}
