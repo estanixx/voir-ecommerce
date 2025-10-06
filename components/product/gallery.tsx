@@ -156,23 +156,23 @@ export function Gallery({ images, className }: GalleryProps) {
         }}
       >
         {shownImages.map((image, index) => (
-          <figure
-            key={`${image.src}-${index}`}
-            className="relative aspect-square"
-            style={{
+            <figure
+              key={`${image.src}-${index}`}
+              className="relative aspect-square"
+              style={{
               flex: `1 0 ${100 / shownImages.length}%`,
-            }}
-          >
-            <Image
+              }}
+            >
+              <Image
               src={image.src}
               alt={image.altText}
               fill
-              className="object-contain p-1"
+              className="object-cover object-top p-1 aspect-square"
               priority={
                 index >= imageAmount - numVisible && index < imageAmount * 2
               }
-            />
-          </figure>
+              />
+            </figure>
         ))}
       </div>
 
