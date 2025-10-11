@@ -84,7 +84,7 @@ export default function NewsletterForm() {
             )}
           />
           <p className="text-sm text-muted-foreground">
-            Para recibir información y promociones relacionadas con nuestro negocio.
+            Para recibir un <span className="font-bold">10% OFF en tu primera compra.</span>
           </p>
           <Button variant="secondary" type="submit">Suscribirme</Button>
         </div>

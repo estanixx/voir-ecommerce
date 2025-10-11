@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   return (
     <>
-      <ModalTrigger />
+      <ModalTrigger autoOpen={true} />
       <VoirVideoHeader
         backgroundVideo="https://cdn.shopify.com/videos/c/o/v/88a907e405014c329051ee87c74f5c37.mp4"
         backgroundVideoSmall="https://cdn.shopify.com/videos/c/o/v/aad5d4161e90493fb5dbcebb7bba742e.mp4"

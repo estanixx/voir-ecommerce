@@ -25,7 +25,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { graffiti } from "@/fonts"; // Assuming you have this font setup
+import { complementary } from "@/fonts"; // Assuming you have this font setup
 import { toast } from "sonner";
 
 const formSchema = z.object({
@@ -36,7 +36,7 @@ const formSchema = z.object({
     .min(1, { message: "La fecha de nacimiento es obligatoria" }),
 });
 
-const NewsletterModal = () => {
+export const NewsletterModal = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,12 +80,12 @@ const NewsletterModal = () => {
       <div className="p-6 flex-1">
         <DialogHeader>
           <DialogTitle
-            className={clsx(graffiti.className, "text-2xl text-center")}
+            className={clsx(complementary.className, "text-4xl tracking-wider text-center")}
           >
-            Newsletter
+            10% OFF
           </DialogTitle>
           <DialogDescription className="text-xs">
-            Suscríbete para recibir nuestras últimas noticias y ofertas.
+            Suscríbete para recibir promociones y novedades. 
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -158,11 +158,11 @@ const NewsletterModal = () => {
   );
 };
 
-const ModalTrigger = () => {
+const ModalTrigger = ({autoOpen = false}: {autoOpen?: boolean}) => {
   // Control the dialog's state, initializing it to 'true' to be open by default.
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
-    setTimeout(() => setIsOpen(true), 5000);
+    if (autoOpen) setTimeout(() => setIsOpen(true), 5000);
   }, []);
 
   return (

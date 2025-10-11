@@ -10,6 +10,7 @@ import { RelatedProducts } from "@/components/product/related-products";
 import { HIDDEN_PRODUCT_TAG } from "@/lib/constants";
 import { ProductDetails } from "@/components/product/product-details";
 import { SITE } from "@/lib/seo";
+import InvertedModalTrigger from "@/components/home/newsletter-modal-inverted";
 
 // Metadata function remains largely the same, but with cleaner props
 export async function generateMetadata({
@@ -73,6 +74,7 @@ export default async function ProductPage({
 
   return (
     <ProductProvider>
+      <InvertedModalTrigger />
       {/* Add the JSON-LD script for SEO */}
       <script
         type="application/ld+json"

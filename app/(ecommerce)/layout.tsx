@@ -26,7 +26,7 @@ export default async function EcommerceLayout({
     <CartProvider cartPromise={cart}>
       {/* <BackgroundTransition /> */}
       <Navbar menu={headerMenu} shopMenus={navShopMenus} />
-
+    
       <main className={`${fonts.complementary.className} relative w-full`}>
         {children}
       </main>

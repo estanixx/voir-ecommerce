@@ -4,6 +4,7 @@ import { getCart, getMenu } from "@/lib/shopify";
 import { ReactNode } from "react";
 import * as fonts from "@/fonts";
 import InvertedFooter from "@/components/layout/footer/inverted-footer";
+import InvertedModalTrigger from "@/components/home/newsletter-modal-inverted";
 // import { RegisterSW } from '../components/register-sw';
 
 export default async function EcommerceLayout({
@@ -25,7 +26,7 @@ export default async function EcommerceLayout({
     <CartProvider cartPromise={cart}>
       {/* <BackgroundTransition /> */}
       <InvertedNavbar menu={headerMenu} shopMenus={navShopMenus} />
-
+      <InvertedModalTrigger />
       <main className={`${fonts.complementary.className} relative w-full bg-white text-black min-h-screen`}>
         {children}
       </main>
