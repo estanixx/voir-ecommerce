@@ -6,25 +6,25 @@ import { BackgroundTransition } from "../shared/background-transition";
 const productData = [
   {
     name: "Morning Spark",
-    path: "/product/morning-spark",
+    path: "/products/morning-spark",
     productImage: "https://picsum.photos/seed/m_pi/400/600",
     hoverProductImage: "https://picsum.photos/seed/m_hpi/400/600",
   },
   {
     name: "Twilight Calm",
-    path: "/product/twilight-calm",
+    path: "/products/twilight-calm",
     productImage: "https://picsum.photos/seed/e_pi/400/600",
     hoverProductImage: "https://picsum.photos/seed/e_hpi/400/600",
   },
   {
     name: "Zenith Bloom",
-    path: "/product/zenith-bloom",
+    path: "/products/zenith-bloom",
     productImage: "https://picsum.photos/seed/a_pi/400/600",
     hoverProductImage: "https://picsum.photos/seed/a_hpi/400/600",
   },
   {
     name: "Eternal Glow",
-    path: "/product/eternal-glow",
+    path: "/products/eternal-glow",
     productImage: "https://picsum.photos/seed/t_pi/400/600",
     hoverProductImage: "https://picsum.photos/seed/t_hpi/400/600",
   },

@@ -21,7 +21,7 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
           <Grid.Item key={product.handle} className="grid-item-animate opacity-0">
             <Link
               className="relative inline-block h-full w-full"
-              href={`/product/${product.handle}`}
+              href={`/products/${product.handle}`}
             >
               <GridTileImage
                 alt={product.title}

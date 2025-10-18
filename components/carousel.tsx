@@ -36,7 +36,7 @@ export async function Carousel({
               style={{ width: `${100/(cols + 0.1)}%` }} // Ajusta el ancho en función de `cols`
             >
               <Link
-                href={`/product/${product.handle}`}
+                href={`/products/${product.handle}`}
                 className="relative h-full w-full"
               >
                 <GridTileImage

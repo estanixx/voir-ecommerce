@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { handle } = await params;
   const product = await getProduct(handle);
-  const siteUrl = `${SITE.url}/product/${handle}`;
+  const siteUrl = `${SITE.url}/products/${handle}`;
   if (!product) return notFound();
 
   const { url: imageUrl, width, height, altText: alt } = product.featuredImage || {};
