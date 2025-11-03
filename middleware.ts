@@ -3,6 +3,14 @@ import type { NextRequest } from 'next/server';
 import { PRESALE_DATE, SALE_DATE } from './lib/constants';
 
 // This function can be marked `async` if using `await` inside
+/*
+  Previous middleware implementation (commented out):
+  - Blocked access to most routes unless the current time is within presale or sale windows
+  - Redirected unauthorised users to the landing page `/v`
+  - Validated a passcode via cookies during presale using env vars `PASSCODE_LOCALSTORAGE_KEY` and `PREACCESS_CODE`
+
+  The original logic is preserved here as a comment for historical/reference purposes.
+
 export function middleware(request: NextRequest) {
   // Get the pathname of the request
   const path = request.nextUrl.pathname;
@@ -46,8 +54,21 @@ export function middleware(request: NextRequest) {
   // Allow access to the requested page
   return NextResponse.next();
 }
+*/
+
+// New permissive middleware: accept any request and allow it to continue.
+export function middleware(request: NextRequest) {
+  // Intentionally permissive: do not block or redirect requests here.
+  // This middleware exists to ensure every incoming request is allowed through
+  // and to avoid the presale/sale based redirects implemented previously.
+  return NextResponse.next();
+}
 
 // See "Matching Paths" below to learn more
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico|og|opengraph|resources|404|500|sitemap.xml|robots.txt).*)', '/((?!.*opengraph).*)']
+/* export const config = {
+  matcher: [
+    '/((?!api|_next/static|_next/image|images|favicon.ico|og|opengraph|resources|404|500|sitemap.xml|robots.txt).*)',
+    '/((?!.*opengraph).*)',
+  ],
 };
+ */
