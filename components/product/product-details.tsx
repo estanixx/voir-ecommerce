@@ -39,7 +39,7 @@ export function ProductDetails({ product }: { product: Product }) {
   return (
     <div
       ref={container}
-      className="mt-5 lg:mt-10 bg-white w-full p-6 md:p-12 lg:p-16 "
+      className="mt-5 lg:mt-10 bg-white w-full p-6 md:p-12 lg:p-16 product-info__block-list"
     >
       <div className="flex flex-col lg:flex-row lg:gap-16">
         {/* Left Column: Video or Image */}
@@ -47,7 +47,7 @@ export function ProductDetails({ product }: { product: Product }) {
           {product.video ? (
             <VerticalVideoPlayer src={product.video} />
           ) : (
-            <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden rounded-lg">
+            <div data-media-type="image" className="product-gallery__media snap-center op  relative aspect-square h-full max-h-[550px] w-full overflow-hidden rounded-lg ">
               <GridTileImage
                 alt={product.title}
                 src={product.featuredImage?.url}
