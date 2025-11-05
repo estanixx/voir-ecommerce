@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import clsx from 'clsx';
 import { complementary } from '@/fonts';
 import { ENVIOS } from '@/lib/constants';
+import { AddiWidget } from './addi-widget';
 
 function InfoItem({
   icon: Icon,
@@ -70,6 +71,7 @@ export function ProductDescription({ product }: { product: Product }) {
         </h2>
         <p className="text-sm my-2 ">
           Impuesto incluido. Los gastos de envío se calculan en la pantalla de pago.
+          <AddiWidget price={product.priceRange.maxVariantPrice.amount} />
         </p>
         <div className="mr-auto w-auto rounded-full bg-black p-2 text-sm text-white">
           <Price
@@ -80,7 +82,6 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-
       <div className="buy-buttons buy-buttons--has-dynamic">
         <VariantSelector options={product.options} variants={product.variants} />
         <AddToCart product={product} />
