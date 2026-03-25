@@ -9,6 +9,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Head from "next/head";
 import { PRESALE_DATE, SALE_DATE } from "@/lib/constants";
 import { complementary } from "@/fonts";
+import { TiktokPixel } from "@/components/product/tiktok-pixel";
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -126,6 +127,7 @@ export default async function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(ldOrg) }}
           />
+          <TiktokPixel />
           {children}
           <Toaster />
         </body>
